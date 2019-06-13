@@ -28,7 +28,8 @@ public class User {
 	private String name;
 	private String surname;
 	private String email;
-	private Date date;
+	private String login;
+	private String password;
 	private Float mony;
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "user_role", joinColumns = {
