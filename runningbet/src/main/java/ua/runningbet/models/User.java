@@ -28,6 +28,7 @@ public class User {
 	private String name;
 	private String surname;
 	private String email;
+	private Date birthday;
 	private String login;
 	private String password;
 	private Float mony;
