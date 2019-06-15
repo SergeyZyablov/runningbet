@@ -55,11 +55,9 @@
 	border-radius: 0px;
 	font-size: 24px;
 	background-color: #F6C105;
-	width: 255px;
-	width: 255px;
-	width: 255px;
 }
 
-.form-text {
-	
+.home {
+	text-decoration: none;
+	color: black;
 }

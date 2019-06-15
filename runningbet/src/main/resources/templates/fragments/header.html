@@ -4,7 +4,7 @@
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title></title>
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
@@ -26,13 +26,17 @@
 		<div class="head">
 			<div class="logo-container ">
 				<div class="logo"></div>
-				Running bet
+				<a class="home" href="/">Running bet</a>
 			</div>
 			<div class="head-buttons">
 				<div class="button btn-group btn-group-lg" role="group">
 					<button type="button" class="btn btn-warning">Кабинет</button>
 					<button type="button" class="btn btn-warning">Победители</button>
 					<button type="button" class="btn btn-warning">О нас</button>
+
+					<input sec:authorize="hasRole('ROLE_admin')"
+						class="btn btn-warning" type="button" value="Администратор"
+						onclick="window.location.href='/admin'" />
 
 				</div>
 			</div>
