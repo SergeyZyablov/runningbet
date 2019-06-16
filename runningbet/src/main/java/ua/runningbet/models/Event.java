@@ -23,12 +23,15 @@ public class Event {
 	@Column(name = "id", unique = true, nullable = false)
 	private Integer id;
 	private String name;
-	private Date startDate;
-	private Date endDate;
+	private String startDate;
+	private String endDate;
+
 	@ManyToMany
 	private List<Slot> slots;
+	
 	@ManyToOne
 	private Category category;
+	
 	@ManyToOne
 	private Status status;
 }

@@ -5,18 +5,21 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
+import ua.runningbet.models.Category;
 import ua.runningbet.models.User;
+import ua.runningbet.repositpries.CategoryRepository;
 import ua.runningbet.repositpries.UserRepository;
 
 @Controller
 public class AdminController {
 	@Autowired
 	private UserRepository userRepository;
-
-	@RequestMapping(value = "/admin", method = RequestMethod.GET)
+	
+	@GetMapping(value = "/admin")
 	public String statisticsPage(Model model) {
 		List<User> users = userRepository.findAll();
 		int registratedUsers = users.size();
@@ -26,10 +29,9 @@ public class AdminController {
 		return "admin";
 	}
 
-	@RequestMapping(value = "/users", method = RequestMethod.GET)
+	@GetMapping(value = "/admin/users")
 	public String usersPage(Model model) {
-		List<User> users = userRepository.findAll();
-		model.addAttribute("users", users);
+		model.addAttribute("users", userRepository.findAll());
 		model.addAttribute("header", "fragments/header");
 		model.addAttribute("buttons", "fragments/adminButtons");
 		return "users";
