@@ -26,5 +26,29 @@
 </head>
 <body class="index-body">
 	<div th:insert="fragments/header :: header">Panel</div>
+
+	<div class="event-container">
+		<div th:each="events : ${events}">
+			<form th:action="@{/event}" method="get">
+				<button class="event-block" type="submit">
+					<div class="status-container">
+						<div th:switch="${events.getStatus().getName()}">
+							<span class="badge badge-danger" th:case="'LIVE'">Live</span> <span
+								class="badge badge-success" th:case="'FUTURE'">Future</span> <span
+								class="badge badge-secondary" th:case="'FINISHED'">Finished</span>
+						</div>
+					</div>
+					<div class="eveny-name">
+						<h3 th:text="${events.getName()}">-</h3>
+					</div>
+					<div class="event-info">
+						<div th:text="${events.startDate}">-</div>
+						<div th:text="${events.category.name}">-</div>
+					</div>
+					<input type="text" name="id" th:value="${events.id}" hidden />
+				</button>
+			</form>
+		</div>
+	</div>
 </body>
 </html>

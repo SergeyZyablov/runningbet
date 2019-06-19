@@ -12,6 +12,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import lombok.Data;
 
 @Entity
@@ -23,15 +25,17 @@ public class Event {
 	@Column(name = "id", unique = true, nullable = false)
 	private Integer id;
 	private String name;
-	private String startDate;
-	private String endDate;
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+	private Date startDate;
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+	private Date endDate;
 
 	@ManyToMany
 	private List<Slot> slots;
-	
+
 	@ManyToOne
 	private Category category;
-	
+
 	@ManyToOne
 	private Status status;
 }

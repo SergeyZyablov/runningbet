@@ -8,15 +8,19 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import ua.runningbet.models.Jockey;
+import ua.runningbet.repositpries.HorseRepository;
 import ua.runningbet.repositpries.JockeyRepository;
 
 @Controller
 public class JockeyController {
 	@Autowired
 	private JockeyRepository jockeyRepository;
+	@Autowired
+	private HorseRepository hourceRepository;
 
 	@GetMapping(value = "/admin/jockey")
 	public String categoryPage(Model model) {
+		model.addAttribute("hources", hourceRepository.findAll());
 		model.addAttribute("jockeys", jockeyRepository.findAll());
 		model.addAttribute("header", "fragments/header");
 		model.addAttribute("buttons", "fragments/adminButtons");

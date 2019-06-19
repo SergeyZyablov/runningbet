@@ -4,7 +4,7 @@
 	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
 	class="h-100">
 <head>
-<title>Category</title>
+<title>Hource add</title>
 <link rel="stylesheet" href="/css/indexStyle.css">
 <link rel="stylesheet" href="/css/headerStyle.css">
 <script src="https://kit.fontawesome.com/8d01d54a35.js"></script>
@@ -30,31 +30,43 @@
 		<div class="menu-container"
 			th:insert="fragments/adminButtons :: buttons">Panel</div>
 		<div class="content-container">
-			<div class="statistics">
-				<div class="yelow user-row">
-					<i class="fas fa-bars"></i>
-					<div class="information-container">Имя</div>
-					<div class="add-container">
-						<form th:action="@{/admin/jockey/add}" method="post">
-							<div class="category-add">
-								<input type="text" class="" id="name" name="name">
-								<button class="yelow" type="submit">
-									<i class="fas fa-plus"></i>
-								</button>
-							</div>
-						</form>
+			<div class=" statistics">
+				<form th:action="@{/admin/hources/add}" method="post"
+					class="card-body">
+					<div class="form-group">
+						<label for="name">Имя</label> <input type="text"
+							class="form-control" id="name" name="name">
 					</div>
-				</div>
-				<div class="user-row" th:each="jockeys : ${jockeys}">
-					<i class="fas fa-bars"></i>
-					<div class="aout-width information-container"
-						th:text="${jockeys.name}"></div>
-						
-					<!-- <div th:each="hources : ${hources}">
-						<div class="aout-width information-container"
-							th:if="${hources.jockey.id == jockeys.id}">1111</div>
-					</div> -->
-				</div>
+					<div class="form-group">
+						<label for="party">Пол</label> <select class="form-control"
+							name="sex">
+							<option>Мужской</option>
+							<option>Женский</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<label for="name">Возраст</label> <input type="text"
+							class="form-control" id="age" name="age">
+					</div>
+					<div class="form-group">
+						<label for="party">Жокей</label> <select class="form-control"
+							name="jockeyName">
+							<option th:each="jockeys: ${jockeys}"
+								th:text="${jockeys.getName()}"></option>
+						</select>
+					</div>
+					<div class="form-group">
+						<label for="party">Тренер</label> <select class="form-control"
+							name="trainerName">
+							<option th:each="trainers: ${trainers}"
+								th:text="${trainers.getName()}"></option>
+						</select>
+					</div>
+					<button type="submit" class="btn btn-warning">Добавить
+						лошадь</button>
+					<input class="btn btn-warning" type="button" value="Отмена"
+						onclick="window.location.href='/admin/hources'" />
+				</form>
 			</div>
 		</div>
 	</div>

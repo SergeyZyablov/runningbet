@@ -23,40 +23,47 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
 	crossorigin="anonymous">
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
 </head>
 <body class="index-body">
 	<div th:insert="fragments/header :: header">Panel</div>
-	<div class="main-container">
-		<div class="menu-container"
-			th:insert="fragments/adminButtons :: buttons">Panel</div>
-		<div class="content-container">
-			<div class="statistics">
-				<div class="yelow user-row">
-					<i class="fas fa-bars"></i>
-					<div class="information-container">Имя</div>
-					<div class="add-container">
-						<form th:action="@{/admin/jockey/add}" method="post">
-							<div class="category-add">
-								<input type="text" class="" id="name" name="name">
-								<button class="yelow" type="submit">
-									<i class="fas fa-plus"></i>
-								</button>
-							</div>
-						</form>
+	<div class="event">
+		<div class="name">
+			<h1 th:text="${event.name}"></h1>
+		</div>
+		<div>Слоты:</div>
+		<div class="slots">
+			<div class="slot">Лошадь</div>
+			<div class="slot">Коэффициен</div>
+			<div class="slot">Ставка</div>
+		</div>
+		<div class="slots" th:each="slot : ${slots}">
+			<div class="slot" th:text="${event.horse.name}"></div>
+			<div class="slot" th:text="${event.coefficient}"></div>
+		</div>
+		<button class="btn btn-warning" type="button" data-toggle="collapse"
+			data-target="#collapseExample" aria-expanded="false"
+			aria-controls="collapseExample">Добавить слот</button>
+		<div class="collapse" id="collapseExample">
+			<div class="card">
+				<form th:action="@{/slot/add}" method="post">
+					<div class="slots">
+						<select class="slot hource-list" name="name">
+							<option th:each="hources: ${hources}" th:text="${hources.name}"></option>
+						</select><input type="text" class="slot" id="name" name="coefficient">
+						<input type="text" class="slot" id="name" name="bet">
+						<div class="add-slot">
+							<button class="yelow" type="submit">
+								<i class="fas fa-plus"></i>
+							</button>
+						</div>
 					</div>
-				</div>
-				<div class="user-row" th:each="jockeys : ${jockeys}">
-					<i class="fas fa-bars"></i>
-					<div class="aout-width information-container"
-						th:text="${jockeys.name}"></div>
-						
-					<!-- <div th:each="hources : ${hources}">
-						<div class="aout-width information-container"
-							th:if="${hources.jockey.id == jockeys.id}">1111</div>
-					</div> -->
-				</div>
+				</form>
 			</div>
 		</div>
 	</div>
+
 </body>
 </html>
