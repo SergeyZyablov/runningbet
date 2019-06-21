@@ -1,0 +1,23 @@
+.registration-body {
+	background-image:
+		url(https://backgroundcheckall.com/wp-content/uploads/2017/12/background-site-black-9.jpg);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100%;
+}
+
+.registration-container {
+	color: #ffffff;
+	background-color: rgba(43, 43, 43, 0.7);
+	width: 400px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+.registration-buttons{
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+}

@@ -1,0 +1,208 @@
+.index-body {
+	background-image:
+		url(https://backgroundcheckall.com/wp-content/uploads/2017/12/background-site-black-9.jpg);
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: stretch;
+	height: 100%;
+	width: 100%;
+}
+
+.slide {
+	width: 400px;
+	height: 300px;
+	background-image: url(/images/logo.png);
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-image: url(/images/logo.png);
+	background-image: url(/images/logo.png);
+}
+
+.main-container {
+	height: 100%;
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: stretch;
+}
+
+.menu-container {
+	background-color: black;
+	padding-top: 10px;
+	width: 256px;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: stretch;
+	width: 256px;
+}
+
+.admin-buttons {
+	margin-top: 20px;
+	border: 0px;
+	width: 255px;
+	height: 100px;
+	border-radius: 0px;
+	font-size: 24px;
+	background-color: #F6C105;
+}
+
+.content-container {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: stretch;
+	background-color: rgba(0, 0, 0, 0.6);
+}
+
+.statistics {
+	color: white;
+	height: 100%;
+	margin-left: 40px;
+	margin-right: 40px;
+	margin-top: 100px;
+	margin-bottom: 40px;
+	background-color: rgba(0, 0, 0, 0.7);
+}
+
+.user-row {
+	background-color: rgba(0, 0, 0, 0.7);
+	margin-top: 10px;
+	font-size: 20px;
+	display: flex;
+	flex-direction: row;
+}
+
+.information-container {
+	margin-left: 10px;
+	width: 150px;
+}
+
+.yelow {
+	border: 0px;
+	margin-top: 0px;
+	background-color: #F6C105;
+	color: black;
+	border-radius: 0px;
+}
+
+.add-container {
+	display: flex;
+	flex-direction: row;
+	align-items: stretch;
+	justify-content: flex-end;
+	width: 100%;
+}
+
+.aout-width {
+	width: 300px;
+}
+
+.event-container {
+	margin-top: 100px;
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	flex-wrap: wrap;
+}
+
+.status-container {
+	width: 100%;
+	display: flex;
+	justify-content: flex-end;
+}
+
+.eveny-name {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.sub-block {
+	
+}
+
+.event-block {
+	margin: 10px;
+	display: flex;
+	flex-direction: column;
+	background-color: rgba(0, 0, 0, 0.7);
+	width: 400px;
+	flex-shrink: 0;
+	color: white;
+	align-items: stretch;
+}
+
+.event-info {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+.event {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: stretch;
+	margin-top: 100px;
+	margin-left: 20px;
+	margin-right: 20px;
+	color: white;
+}
+
+.slots {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: stretch;
+	display: flex;
+	background-color: rgba(0, 0, 0, 0.7);
+}
+
+.slot {
+	font-size: 24px;
+	width: 200px;
+}
+
+.cardbody {
+	padding: 0;
+}
+
+.hource-list {
+	padding: 0px;
+	margin: 0px;
+	background-color: white;
+	height: 42px;
+}
+
+.sc {
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+}
+
+.add-slot {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
+}
+
+.add-button {
+	width: 100px;
+}
+
+.add-button-block {
+	display: flex;
+	justify-content: center;
+}

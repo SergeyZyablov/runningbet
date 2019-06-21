@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="https://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+	class="h-100">
+<head>
+<title>Tariners</title>
+<link rel="stylesheet" href="/css/indexStyle.css">
+<link rel="stylesheet" href="/css/headerStyle.css">
+<script src="https://kit.fontawesome.com/8d01d54a35.js"></script>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+	integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+	integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+	crossorigin="anonymous"></script>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+</head>
+<body class="index-body">
+	<div th:insert="fragments/header :: header">Panel</div>
+	<div class="main-container">
+		<div class="menu-container"
+			th:insert="fragments/adminButtons :: buttons">Panel</div>
+		<div class="content-container">
+			<div class="statistics">
+				<div class="yelow user-row">
+					<i class="fas fa-bars"></i>
+					<div class="information-container">Имя</div>
+					<div class="add-container">
+						<form th:action="@{/admin/trainers/add}" method="post">
+							<div class="category-add">
+								<input type="text" class="" id="name" name="name">
+								<button class="yelow" type="submit">
+									<i class="fas fa-plus"></i>
+								</button>
+							</div>
+						</form>
+					</div>
+				</div>
+				<div class="user-row" th:each="trainers : ${trainers}">
+					<i class="fas fa-bars"></i>
+					<div class="aout-width information-container"
+						th:text="${trainers.name}"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
