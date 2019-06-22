@@ -28,4 +28,15 @@ public class TrainerController {
 		trainerRepository.save(trainer);
 		return "redirect:/admin/trainers";
 	}
+
+	@PostMapping(value = "/trainers/remove")
+	public String trainerRemove(String id, Model model) {
+		Trainer trainer = trainerRepository.getOne(Integer.valueOf(id));
+		trainerRepository.delete(trainer);
+		model.addAttribute("trainers", trainerRepository.findAll());
+		model.addAttribute("header", "fragments/header");
+		model.addAttribute("buttons", "fragments/adminButtons");
+		return "trainer";
+	}
+
 }

@@ -114,6 +114,18 @@
 }
 
 .status-container {
+	width: 47%;
+	display: flex;
+	justify-content: flex-end;
+}
+
+.hource-container {
+	width: 47%;
+	display: flex;
+	justify-content: flex-end;
+}
+
+.jockey-container {
 	width: 100%;
 	display: flex;
 	justify-content: flex-end;

@@ -24,7 +24,7 @@ public class Horse {
 	private String name;
 	private String sex;
 	private Integer age;
-	@OneToMany
+	@OneToMany(mappedBy = "horse")
 	private List<Slot> slots;
 	@ManyToOne
 	private Jockey jockey;

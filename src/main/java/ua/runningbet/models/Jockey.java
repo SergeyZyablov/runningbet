@@ -21,6 +21,6 @@ public class Jockey {
 	@Column(name = "id", unique = true, nullable = false)
 	private Integer id;
 	private String name;
-	@OneToMany
+	@OneToMany(mappedBy = "jockey")
 	private List<Horse> horses;
 }

@@ -42,17 +42,30 @@
 					<div class="information-container">Конец</div>
 					<div class="information-container">Категория</div>
 					<div class="information-container">Статус</div>
+					<div class="status-container"></div>
 				</div>
 				<div class="user-row" th:each="events : ${events}">
 					<i class="fas fa-bars"></i>
 					<div class="information-container" th:text="${events.name}"></div>
-					<div class="information-container"
-						th:text="${events.startDate}"></div>
-					<div class="information-container"
-						th:text="${events.endDate}"></div>
+					<div class="information-container" th:text="${events.startDate}"></div>
+					<div class="information-container" th:text="${events.endDate}"></div>
 					<div class="information-container"
 						th:text="${events.category.name}"></div>
-					<div class="information-container" th:text="${events.status.name}"></div>
+					<div class="information-container">
+						<div th:switch="${events.getStatus().getName()}">
+							<span class="badge badge-danger" th:case="'LIVE'">Live</span> <span
+								class="badge badge-success" th:case="'FUTURE'">Future</span> <span
+								class="badge badge-secondary" th:case="'FINISHED'">Finished</span>
+						</div>
+					</div>
+					<div class="status-container">
+						<form th:action="@{/event/remove}" method="post">
+							<input type="text" name="id" th:value="${events.id}" hidden />
+							<button class="yelow" type="submit">
+								<i class="fas fa-backspace"></i>
+							</button>
+						</form>
+					</div>
 				</div>
 			</div>
 		</div>

@@ -28,4 +28,14 @@ public class CategoryController {
 		categoryRepository.save(category);
 		return "redirect:/admin/category";
 	}
+
+	@PostMapping(value = "/category/remove")
+	public String categoryRemove(String id, Model model) {
+		Category category = categoryRepository.getOne(Integer.valueOf(id));
+		categoryRepository.delete(category);
+		model.addAttribute("categories", categoryRepository.findAll());
+		model.addAttribute("header", "fragments/header");
+		model.addAttribute("buttons", "fragments/adminButtons");
+		return "/category";
+	}
 }

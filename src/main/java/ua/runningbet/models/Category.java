@@ -21,6 +21,6 @@ public class Category {
 	@Column(name = "id", unique = true, nullable = false)
 	private Integer id;
 	private String name;
-	@OneToMany
+	@OneToMany(mappedBy="category")
 	private List<Event> events;
 }

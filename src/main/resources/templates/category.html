@@ -49,6 +49,14 @@
 					<i class="fas fa-bars"></i>
 					<div class="aout-width information-container"
 						th:text="${categories.getName()}"></div>
+					<div class="jockey-container">
+						<form th:action="@{/category/remove}" method="post">
+							<input type="text" name="id" th:value="${categories.id}" hidden />
+							<button class="yelow" type="submit">
+								<i class="fas fa-backspace"></i>
+							</button>
+						</form>
+					</div>
 				</div>
 			</div>
 		</div>

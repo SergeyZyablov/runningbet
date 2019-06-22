@@ -49,11 +49,14 @@
 					<i class="fas fa-bars"></i>
 					<div class="aout-width information-container"
 						th:text="${jockeys.name}"></div>
-						
-					<!-- <div th:each="hources : ${hources}">
-						<div class="aout-width information-container"
-							th:if="${hources.jockey.id == jockeys.id}">1111</div>
-					</div> -->
+					<div class="jockey-container">
+						<form th:action="@{/jockey/remove}" method="post">
+							<input type="text" name="id" th:value="${jockeys.id}" hidden />
+							<button class="yelow" type="submit">
+								<i class="fas fa-backspace"></i>
+							</button>
+						</form>
+					</div>
 				</div>
 			</div>
 		</div>

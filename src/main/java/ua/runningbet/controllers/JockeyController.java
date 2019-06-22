@@ -8,19 +8,15 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import ua.runningbet.models.Jockey;
-import ua.runningbet.repositpries.HorseRepository;
 import ua.runningbet.repositpries.JockeyRepository;
 
 @Controller
 public class JockeyController {
 	@Autowired
 	private JockeyRepository jockeyRepository;
-	@Autowired
-	private HorseRepository hourceRepository;
 
 	@GetMapping(value = "/admin/jockey")
 	public String categoryPage(Model model) {
-		model.addAttribute("hources", hourceRepository.findAll());
 		model.addAttribute("jockeys", jockeyRepository.findAll());
 		model.addAttribute("header", "fragments/header");
 		model.addAttribute("buttons", "fragments/adminButtons");
@@ -31,5 +27,15 @@ public class JockeyController {
 	public String categoryAddPage(@ModelAttribute("Category") Jockey jockey, Model model) {
 		jockeyRepository.save(jockey);
 		return "redirect:/admin/jockey";
+	}
+
+	@PostMapping(value = "/jockey/remove")
+	public String jockyRemove(String id, Model model) {
+		Jockey jockey = jockeyRepository.findOneByid(Integer.valueOf(id));
+		jockeyRepository.delete(jockey);
+		model.addAttribute("jockeys", jockeyRepository.findAll());
+		model.addAttribute("header", "fragments/header");
+		model.addAttribute("buttons", "fragments/adminButtons");
+		return "jockey";
 	}
 }

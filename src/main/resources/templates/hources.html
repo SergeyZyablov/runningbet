@@ -42,15 +42,26 @@
 					<div class="information-container">Возраст</div>
 					<div class="information-container">Жокей</div>
 					<div class="information-container">Тренер</div>
+					<div class="hource-container">
+						<div style="width: 37px"></div>
+					</div>
 				</div>
 				<div class="user-row" th:each="hources : ${hources}">
 					<i class="fas fa-bars"></i>
 					<div class="information-container" th:text="${hources.name}"></div>
 					<div class="information-container" th:text="${hources.sex}"></div>
 					<div class="information-container" th:text="${hources.age}">-</div>
+					<div class="information-container" th:text="${hources.jockey.name}"></div>
 					<div class="information-container"
-						th:text="${hources.jockey.name}"></div>
-					<div class="information-container" th:text="${hources.trainer.name}"></div>
+						th:text="${hources.trainer.name}"></div>
+					<div class="hource-container">
+						<form th:action="@{/hource/remove}" method="post">
+							<input type="text" name="id" th:value="${hources.id}" hidden />
+							<button class="yelow" type="submit">
+								<i class="fas fa-backspace"></i>
+							</button>
+						</form>
+					</div>
 				</div>
 			</div>
 		</div>

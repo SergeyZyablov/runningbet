@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import ua.runningbet.models.Event;
 import ua.runningbet.repositpries.EventRepository;
-import ua.runningbet.repositpries.SlotRepository;
 import ua.runningbet.repositpries.StatusRepository;
 
 @Controller
@@ -21,8 +20,6 @@ public class HomeController {
 	private EventRepository eventRepository;
 	@Autowired
 	private StatusRepository statusRepository;
-	@Autowired
-	private SlotRepository slotRepository;
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String homePage(Model model) {

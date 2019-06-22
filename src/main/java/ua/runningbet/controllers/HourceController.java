@@ -49,4 +49,13 @@ public class HourceController {
 		return "redirect:/admin/hources";
 	}
 
+	@PostMapping(value = "/hource/remove")
+	public String hourceRemove(String id, Model model) {
+		Horse hource = horceRepository.getOne(Integer.valueOf(id));
+		horceRepository.delete(hource);
+		model.addAttribute("hources", horceRepository.findAll());
+		model.addAttribute("header", "fragments/header");
+		model.addAttribute("buttons", "fragments/adminButtons");
+		return "hources";
+	}
 }
