@@ -1,9 +1,13 @@
 package ua.runningbet.controllers;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import ua.runningbet.models.Event;
@@ -11,6 +15,7 @@ import ua.runningbet.models.Slot;
 import ua.runningbet.repositpries.EventRepository;
 import ua.runningbet.repositpries.HorseRepository;
 import ua.runningbet.repositpries.SlotRepository;
+import ua.runningbet.valodators.SlotValidator;
 
 @Controller
 public class SlotController {
@@ -20,12 +25,25 @@ public class SlotController {
 	private EventRepository eventRepository;
 	@Autowired
 	private HorseRepository hourceRepository;
+	@Autowired
+	private SlotValidator slotValidator;
 
 	@PostMapping(value = "/slot/add")
-	public String addSlot(String eventId, Slot slot, String hource, Model model) {
+	public String addSlot(String eventId, @ModelAttribute @Valid Slot slot, BindingResult bindingResult, String hource,
+			Model model, Errors errors) {
 		Event event = eventRepository.findOneById(Integer.valueOf(eventId));
 		slot.setEvent(event);
 		slot.setHorse(hourceRepository.findOneByName(hource));
+		slotValidator.validate(slot, errors);
+		if (bindingResult.hasErrors()) {
+			model.addAttribute("event", event);
+			model.addAttribute("slots", event.getSlots());
+			model.addAttribute("hources", hourceRepository.findAll());
+			model.addAttribute("header", "fragments/header");
+			model.addAttribute("buttons", "fragments/adminButtons");
+			return "eventPage";
+		}
+
 		slotRepository.save(slot);
 		model.addAttribute("event", event);
 		model.addAttribute("slots", event.getSlots());

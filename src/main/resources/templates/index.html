@@ -31,7 +31,7 @@
 		<div th:each="events : ${events}">
 			<form th:action="@{/event}" method="get">
 				<button class="event-block" type="submit">
-					<div class="status-container">
+					<div class="home-status-container">
 						<div th:switch="${events.getStatus().getName()}">
 							<span class="badge badge-danger" th:case="'LIVE'">Live</span> <span
 								class="badge badge-success" th:case="'FUTURE'">Future</span> <span

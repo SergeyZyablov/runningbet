@@ -1,9 +1,14 @@
 package ua.runningbet.controllers;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import ua.runningbet.models.Horse;
@@ -12,6 +17,7 @@ import ua.runningbet.models.Trainer;
 import ua.runningbet.repositpries.HorseRepository;
 import ua.runningbet.repositpries.JockeyRepository;
 import ua.runningbet.repositpries.TrainerRepository;
+import ua.runningbet.valodators.HourceValidator;
 
 @Controller
 public class HourceController {
@@ -21,6 +27,8 @@ public class HourceController {
 	private TrainerRepository trainerRepository;
 	@Autowired
 	private JockeyRepository jockeyRepository;
+	@Autowired
+	private HourceValidator hourceValidator;
 
 	@GetMapping(value = "/admin/hources")
 	public String hourcesPage(Model model) {
@@ -32,6 +40,7 @@ public class HourceController {
 
 	@GetMapping(value = "/admin/hources/add")
 	public String hourcesAddPage(Model model) {
+		model.addAttribute("hource", new Horse());
 		model.addAttribute("trainers", trainerRepository.findAll());
 		model.addAttribute("jockeys", jockeyRepository.findAll());
 		model.addAttribute("header", "fragments/header");
@@ -40,7 +49,13 @@ public class HourceController {
 	}
 
 	@PostMapping(value = "/admin/hources/add")
-	public String hourcesAdd(Model model, Horse hource, String jockeyName, String trainerName) {
+	public String hourcesAdd(@ModelAttribute @Valid Horse hource, BindingResult bindingResult, Errors errors,
+			String jockeyName, String trainerName, Model model) {
+
+		hourceValidator.validate(hource, errors);
+		if (bindingResult.hasErrors()) {
+			return "redirect:/admin/hources/add";
+		}
 		Jockey jockey = jockeyRepository.findByName(jockeyName);
 		Trainer trainer = trainerRepository.findByName(trainerName);
 		hource.setJockey(jockey);

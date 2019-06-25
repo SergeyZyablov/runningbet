@@ -71,12 +71,12 @@
 			слот</button>
 		<div class="collapse" id="collapseExample">
 			<div class="card">
-				<form th:action="@{/slot/add}" method="post">
+				<form th:action="@{/slot/add}" th:object="${slot}" method="post">
 					<input type="text" name="eventId" th:value="${event.id}" hidden />
 					<div class="slots">
 						<select class="slot hource-list" name="hource">
 							<option th:each="hources: ${hources}" th:text="${hources.name}"></option>
-						</select><input type="text" class="slot" id="name" name="coefficient">
+						</select> <input type="text" class="slot" id="name" name="coefficient">
 						<div class="add-slot">
 							<button class="yelow" type="submit">
 								<i class="fas fa-plus"></i>

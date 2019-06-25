@@ -10,4 +10,6 @@ import ua.runningbet.models.Role;
 public interface RoleRepository extends JpaRepository<Role, Integer> {
 	List<Role> findAllById(Set<Long> singleton);
 
+	Role findOneByRole(String role);
+
 }

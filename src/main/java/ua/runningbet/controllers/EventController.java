@@ -5,19 +5,25 @@ import java.text.SimpleDateFormat;
 import java.sql.Date;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import ua.runningbet.models.Category;
 import ua.runningbet.models.Event;
+import ua.runningbet.models.Slot;
 import ua.runningbet.repositpries.CategoryRepository;
 import ua.runningbet.repositpries.EventRepository;
 import ua.runningbet.repositpries.HorseRepository;
 import ua.runningbet.repositpries.StatusRepository;
+import ua.runningbet.valodators.EventValidator;
 
 @Controller
 public class EventController {
@@ -29,6 +35,8 @@ public class EventController {
 	private StatusRepository statusRepository;
 	@Autowired
 	private HorseRepository hourceRepository;
+	@Autowired
+	private EventValidator eventValidator;
 
 	@GetMapping(value = "/admin/event")
 	public String eventPage(Model model) {
@@ -53,6 +61,8 @@ public class EventController {
 
 	@GetMapping(value = "/admin/event/add")
 	public String eventAddPage(Model model) {
+		model.addAttribute("event", new Event());
+		model.addAttribute("date", new String());
 		model.addAttribute("category", categoryRepository.findAll());
 		model.addAttribute("header", "fragments/header");
 		model.addAttribute("buttons", "fragments/adminButtons");
@@ -60,14 +70,20 @@ public class EventController {
 	}
 
 	@PostMapping(value = "/admin/event/add")
-	public String eventAddPage(@ModelAttribute("categorName") String categoryName, @ModelAttribute("event") Event event,
-			@ModelAttribute("date") String date, Model model) throws ParseException {
-
+	public String eventAddPage(@ModelAttribute("categorName") String categoryName,
+			@Valid @ModelAttribute("event") Event event, BindingResult bindingResult,
+			@ModelAttribute("date") String date, Model model, Errors errors) throws ParseException {
+		eventValidator.validate(event, errors);
+		if (bindingResult.hasErrors()) {
+			return "redirect:/admin/event/add";
+		}
+		if (date.isEmpty()) {
+			return "redirect:/admin/event/add";
+		}
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
 		java.util.Date parsed = format.parse(date);
-		Date dateSQL = new java.sql.Date(parsed.getTime());
 		Category category = categoryRepository.findByName(categoryName);
-		event.setStartDate(dateSQL);
+		event.setStartDate(parsed);
 		event.setCategory(category);
 		event.setStatus(statusRepository.findByName("FUTURE"));
 		eventRepository.save(event);
@@ -77,6 +93,7 @@ public class EventController {
 	@GetMapping(value = "/event")
 	public String oneEventPage(String id, Model model) {
 		Event event = eventRepository.findOneById(Integer.valueOf(id));
+		model.addAttribute("slot", new Slot());
 		model.addAttribute("event", event);
 		model.addAttribute("slots", event.getSlots());
 		model.addAttribute("hources", hourceRepository.findAll());

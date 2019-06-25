@@ -1,6 +1,5 @@
 package ua.runningbet.models;
 
-import java.sql.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -14,6 +13,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 import lombok.Data;
 
@@ -25,11 +27,20 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
 	private Integer id;
+	@NotEmpty(message = "Поле не заполнено")
 	private String name;
+	@NotEmpty(message = "Поле не заполнено")
 	private String surname;
+	@NotEmpty(message = "Поле не заполнено")
+	@Email(message = "Почта указана не корректно")
 	private String email;
-	private Date birthday;
+	@NotEmpty(message = "Поле не заполнено")
+	private String birthday;
+	@NotEmpty(message = "Поле не заполнено")
+	@Size(min = 6, max = 50, message = "Логин должен быть больше 6 знаков")
 	private String login;
+	@NotEmpty(message = "Поле не заполнено")
+	@Size(min = 6, max = 50, message = "Пароль должен быть больше 6 знаков")
 	private String password;
 	private Float mony;
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

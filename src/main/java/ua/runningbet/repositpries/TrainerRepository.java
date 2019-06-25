@@ -7,4 +7,6 @@ import ua.runningbet.models.Trainer;
 public interface TrainerRepository extends JpaRepository<Trainer, Integer> {
 	public Trainer findByName(String name);
 
+	public boolean existsByName(String name);
+
 }

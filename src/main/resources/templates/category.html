@@ -35,7 +35,10 @@
 					<i class="fas fa-bars"></i>
 					<div class="information-container">Название</div>
 					<div class="add-container">
-						<form th:action="@{/admin/category/add}" method="post">
+						<form th:action="@{/admin/category/add}" th:object="${category}"
+							method="post">
+							<div class="alert alert-danger"
+								th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
 							<div class="category-add">
 								<input type="text" class="" id="name" name="name">
 								<button class="yelow" type="submit">

@@ -113,6 +113,12 @@
 	flex-wrap: wrap;
 }
 
+.home-status-container {
+	width: 100%;
+	display: flex;
+	justify-content: flex-end;
+}
+
 .status-container {
 	width: 47%;
 	display: flex;

@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 
 import lombok.Data;
 
@@ -20,7 +21,8 @@ public class Category {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
 	private Integer id;
+	@NotEmpty(message = "Поле не заполнено")
 	private String name;
-	@OneToMany(mappedBy="category")
+	@OneToMany(mappedBy = "category")
 	private List<Event> events;
 }

@@ -1,6 +1,6 @@
 package ua.runningbet.models;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -24,13 +25,14 @@ public class Event {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
 	private Integer id;
+	@NotEmpty(message = "Поле не заполнено")
 	private String name;
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
 	private Date startDate;
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
 	private Date endDate;
 
-	@OneToMany(mappedBy="event")
+	@OneToMany(mappedBy = "event")
 	private List<Slot> slots;
 
 	@ManyToOne

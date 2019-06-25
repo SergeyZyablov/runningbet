@@ -31,22 +31,24 @@
 			th:insert="fragments/adminButtons :: buttons">Panel</div>
 		<div class="content-container">
 			<div class=" statistics">
-				<form th:action="@{/admin/event/add}" method="post" class="card-body">
+				<form th:action="@{/admin/event/add}" th:object="${event}"
+					method="post" class="card-body">
 					<div class="form-group">
+						<div class="alert alert-danger"
+							th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
 						<label for="name">Название</label> <input type="text"
 							class="form-control" id="name" name="name">
 					</div>
 					<div class="form-group">
 						<label for="party">Дата начала:</label> <input
-							type="datetime-local" class="form-control" id="party"
-							name="date" min="1900-04-01" max="2100-04-30">
+							type="datetime-local" class="form-control" id="party" name="date"
+							min="1900-04-01" max="2100-04-30">
 					</div>
 					<div class="form-group">
 						<label for="party">Категория</label> <select class="form-control"
 							name="categorName">
 							<option th:each="category: ${category}"
-								th:text="${category.getName()}">
-								</option>
+								th:text="${category.getName()}"></option>
 						</select>
 					</div>
 					<!-- <div class="form-group">

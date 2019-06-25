@@ -31,11 +31,13 @@
 			th:insert="fragments/adminButtons :: buttons">Panel</div>
 		<div class="content-container">
 			<div class=" statistics">
-				<form th:action="@{/admin/hources/add}" method="post"
-					class="card-body">
+				<form th:action="@{/admin/hources/add}" th:object="${hource}"
+					method="post" class="card-body">
 					<div class="form-group">
-						<label for="name">Имя</label> <input type="text"
-							class="form-control" id="name" name="name">
+						<label for="name">Имя</label>
+						<div class="alert alert-danger"
+							th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+						<input type="text" class="form-control" id="name" name="name">
 					</div>
 					<div class="form-group">
 						<label for="party">Пол</label> <select class="form-control"
@@ -45,8 +47,8 @@
 						</select>
 					</div>
 					<div class="form-group">
-						<label for="name">Возраст</label> <input type="text"
-							class="form-control" id="age" name="age">
+						<label for="name">Возраст</label>
+						<input type="text" class="form-control" id="age" name="age">
 					</div>
 					<div class="form-group">
 						<label for="party">Жокей</label> <select class="form-control"
