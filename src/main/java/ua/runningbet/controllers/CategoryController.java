@@ -3,6 +3,9 @@ package ua.runningbet.controllers;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,6 +20,9 @@ import ua.runningbet.valodators.CategoryValidator;
 
 @Controller
 public class CategoryController {
+	private int page = 0;
+	private final int PAGE_SIZE = 15;
+
 	@Autowired
 	private CategoryRepository categoryRepository;
 	@Autowired
@@ -24,11 +30,27 @@ public class CategoryController {
 
 	@GetMapping(value = "/admin/category")
 	public String categoryPage(Model model) {
+		Pageable pageNumber = PageRequest.of(page, PAGE_SIZE);
+		Page<Category> pageabledCategory = categoryRepository.findAll(pageNumber);
 		model.addAttribute("category", new Category());
-		model.addAttribute("categories", categoryRepository.findAll());
+		model.addAttribute("categories", pageabledCategory);
 		model.addAttribute("header", "fragments/header");
 		model.addAttribute("buttons", "fragments/adminButtons");
 		return "/category";
+	}
+
+	@GetMapping("/admin/category/next")
+	public String nextPage() {
+		page++;
+		return "redirect:/admin/category";
+	}
+
+	@GetMapping("/admin/category/prev")
+	public String prevPage() {
+		if (page > 0) {
+			page--;
+		}
+		return "redirect:/admin/category";
 	}
 
 	@PostMapping(value = "/admin/category/add")

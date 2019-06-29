@@ -1,6 +1,9 @@
 package ua.runningbet.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -16,6 +19,8 @@ import ua.runningbet.valodators.TrainerValidator;
 
 @Controller
 public class TrainerController {
+	private int page = 0;
+	private final int PAGE_SIZE = 15;
 	@Autowired
 	private TrainerRepository trainerRepository;
 	@Autowired
@@ -23,11 +28,27 @@ public class TrainerController {
 
 	@GetMapping(value = "/admin/trainers")
 	public String categoryPage(Model model) {
+		Pageable pageNumber = PageRequest.of(page, PAGE_SIZE);
+		Page<Trainer> pageabledJockey = trainerRepository.findAll(pageNumber);
 		model.addAttribute("trainer", new Trainer());
-		model.addAttribute("trainers", trainerRepository.findAll());
+		model.addAttribute("trainers", pageabledJockey);
 		model.addAttribute("header", "fragments/header");
 		model.addAttribute("buttons", "fragments/adminButtons");
 		return "trainer";
+	}
+
+	@GetMapping("/admin/trainers/next")
+	public String nextPage() {
+		page++;
+		return "redirect:/admin/trainers";
+	}
+
+	@GetMapping("/admin/trainers/prev")
+	public String prevPage() {
+		if (page > 0) {
+			page--;
+		}
+		return "redirect:/admin/trainers";
 	}
 
 	@PostMapping(value = "/admin/trainers/add")

@@ -3,6 +3,9 @@ package ua.runningbet.controllers;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,6 +24,9 @@ import ua.runningbet.valodators.HourceValidator;
 
 @Controller
 public class HourceController {
+	private int page = 0;
+	private final int PAGE_SIZE = 15;
+
 	@Autowired
 	private HorseRepository horceRepository;
 	@Autowired
@@ -32,10 +38,26 @@ public class HourceController {
 
 	@GetMapping(value = "/admin/hources")
 	public String hourcesPage(Model model) {
-		model.addAttribute("hources", horceRepository.findAll());
+		Pageable pageNumber = PageRequest.of(page, PAGE_SIZE);
+		Page<Horse> pageabledHource = horceRepository.findAll(pageNumber);
+		model.addAttribute("hources", pageabledHource);
 		model.addAttribute("header", "fragments/header");
 		model.addAttribute("buttons", "fragments/adminButtons");
 		return "hources";
+	}
+
+	@GetMapping("/admin/hources/next")
+	public String nextPage() {
+		page++;
+		return "redirect:/admin/hources";
+	}
+
+	@GetMapping("/admin/hources/prev")
+	public String prevPage() {
+		if (page > 0) {
+			page--;
+		}
+		return "redirect:/admin/hources";
 	}
 
 	@GetMapping(value = "/admin/hources/add")

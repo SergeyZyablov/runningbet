@@ -8,6 +8,9 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -27,6 +30,9 @@ import ua.runningbet.valodators.EventValidator;
 
 @Controller
 public class EventController {
+	private int page = 0;
+	private final int PAGE_SIZE = 9;
+
 	@Autowired
 	private EventRepository eventRepository;
 	@Autowired
@@ -48,15 +54,34 @@ public class EventController {
 				events.get(i).setStatus(statusRepository.findByName("LIVE"));
 			} else if (events.get(i).getStartDate().after(dateSQL)) {
 				events.get(i).setStatus(statusRepository.findByName("FUTURE"));
-			} else if (events.get(i).getStartDate().before(dateSQL)) {
-				events.get(i).setStatus(statusRepository.findByName("FINISHED"));
 			}
+			/*
+			 * else if (events.get(i).getStartDate().before(dateSQL)) {
+			 * events.get(i).setStatus(statusRepository.findByName("FINISHED")); }
+			 */
 			eventRepository.save(events.get(i));
 		}
-		model.addAttribute("events", events);
+
+		Pageable pageNumber = PageRequest.of(page, PAGE_SIZE);
+		Page<Event> pageabledEvents = eventRepository.findAll(pageNumber);
+		model.addAttribute("events", pageabledEvents);
 		model.addAttribute("header", "fragments/header");
 		model.addAttribute("buttons", "fragments/adminButtons");
 		return "/event";
+	}
+
+	@GetMapping("/admin/event/next")
+	public String nextPage() {
+		page++;
+		return "redirect:/admin/event";
+	}
+
+	@GetMapping("/admin/event/prev")
+	public String prevPage() {
+		if (page > 0) {
+			page--;
+		}
+		return "redirect:/admin/event";
 	}
 
 	@GetMapping(value = "/admin/event/add")

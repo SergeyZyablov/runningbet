@@ -3,6 +3,9 @@ package ua.runningbet.controllers;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,6 +20,8 @@ import ua.runningbet.valodators.JockeyValidator;
 
 @Controller
 public class JockeyController {
+	private int page = 0;
+	private final int PAGE_SIZE = 15;
 	@Autowired
 	private JockeyRepository jockeyRepository;
 	@Autowired
@@ -24,11 +29,27 @@ public class JockeyController {
 
 	@GetMapping(value = "/admin/jockey")
 	public String categoryPage(Model model) {
+		Pageable pageNumber = PageRequest.of(page, PAGE_SIZE);
+		Page<Jockey> pageabledJockey = jockeyRepository.findAll(pageNumber);
 		model.addAttribute("jockey", new Jockey());
-		model.addAttribute("jockeys", jockeyRepository.findAll());
+		model.addAttribute("jockeys", pageabledJockey);
 		model.addAttribute("header", "fragments/header");
 		model.addAttribute("buttons", "fragments/adminButtons");
 		return "jockey";
+	}
+	
+	@GetMapping("/admin/jockey/next")
+	public String nextPage() {
+		page++;
+		return "redirect:/admin/jockey";
+	}
+
+	@GetMapping("/admin/jockey/prev")
+	public String prevPage() {
+		if (page > 0) {
+			page--;
+		}
+		return "redirect:/admin/jockey";
 	}
 
 	@PostMapping(value = "/admin/jockey/add")

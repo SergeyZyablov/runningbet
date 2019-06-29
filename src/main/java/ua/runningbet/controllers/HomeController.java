@@ -31,9 +31,11 @@ public class HomeController {
 				events.get(i).setStatus(statusRepository.findByName("LIVE"));
 			} else if (events.get(i).getStartDate().after(dateSQL)) {
 				events.get(i).setStatus(statusRepository.findByName("FUTURE"));
-			} else if (events.get(i).getStartDate().before(dateSQL)) {
-				events.get(i).setStatus(statusRepository.findByName("FINISHED"));
-			}
+			} 
+			/*
+			 * else if (events.get(i).getStartDate().before(dateSQL)) {
+			 * events.get(i).setStatus(statusRepository.findByName("FINISHED")); }
+			 */
 			eventRepository.save(events.get(i));
 		}
 		/*
