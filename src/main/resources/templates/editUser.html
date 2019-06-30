@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<meta charset="UTF-8">
+<title>Кабинет</title>
+<link rel="stylesheet" href="/css/indexStyle.css">
+<link rel="stylesheet" href="/css/headerStyle.css">
+<script src="https://kit.fontawesome.com/8d01d54a35.js"></script>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+	integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+	integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+	crossorigin="anonymous"></script>
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+	integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+	crossorigin="anonymous"></script>
+</head>
+<body class="index-body">
+	<div th:insert="fragments/header :: header">Panel</div>
+	<div class="content-container">
+		<div class="statistics">
+			<form th:action="@{/cabinet/editing}" th:object="${user}"
+				method="post">
+				<div class="user-info-container">
+					<div class="cabinet-info-text information-container">Имя:</div>
+					<div class="alert alert-danger"
+						th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+					<input type="text"
+						class="form-control cabinet-info-text information-container"
+						id="name" name="name" th:value="${logenedUser.name}">
+				</div>
+				<div class="user-info-container">
+					<div
+						class="cabinet-info-text cabinet-info-text information-container">Фамилия:</div>
+					<div class="alert alert-danger"
+						th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"></div>
+					<input type="text"
+						class="form-control cabinet-info-text information-container"
+						name="surname" th:value="${logenedUser.surname}">
+				</div>
+				<div class="user-info-container">
+					<div class="cabinet-info-text information-container">Почта:</div>
+					<div class="alert alert-danger"
+						th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+					<input type="email"
+						class="form-control cabinet-info-text information-container"
+						id="exampleInputEmail1" name="email" aria-describedby="emailHelp"
+						th:value="${logenedUser.email}">
+				</div>
+				<div class="user-info-container">
+					<div class="cabinet-info-text information-container">Логин:</div>
+					<div class="alert alert-danger"
+						th:if="${#fields.hasErrors('login')}" th:errors="*{login}"></div>
+					<input type="text"
+						class="form-control cabinet-info-text information-container"
+						name="login" th:value="${logenedUser.login}">
+				</div>
+				<div class="user-info-container">
+					<div class="cabinet-info-text information-container">День
+						рождения:</div>
+					<div class="alert alert-danger"
+						th:if="${#fields.hasErrors('birthday')}" th:errors="*{birthday}"></div>
+					<input type="date"
+						class="form-control cabinet-info-text information-container"
+						id="party" name="birthday" min="1900-04-01" max="2100-04-30"
+						th:value="${logenedUser.birthday}">
+				</div>
+				<input type="text" name="id" th:value="${logenedUser.id}" hidden />
+				<div class="edition-button-container">
+					<button type="submit" class="btn btn-warning" data-toggle="tooltip"
+						data-placement="top" title="Изменить информацию">
+						<i class="fas fa-user-edit"></i>
+					</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</body>
+</html>

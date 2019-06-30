@@ -41,26 +41,27 @@ public class UserValidator implements Validator {
 		try {
 			date = format.parse(user.getBirthday());
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		if (date != null) {
+			GregorianCalendar birthDay = new GregorianCalendar();
+			birthDay.setTime(date);
+			GregorianCalendar checkDay = new GregorianCalendar();
+			int years = checkDay.get(GregorianCalendar.YEAR) - birthDay.get(GregorianCalendar.YEAR);
+			int checkMonth = checkDay.get(GregorianCalendar.MONTH);
+			int birthMonth = birthDay.get(GregorianCalendar.MONTH);
+			if (checkMonth < birthMonth) {
+				years--;
+			} else if (checkMonth == birthMonth
+					&& checkDay.get(GregorianCalendar.DAY_OF_MONTH) < birthDay.get(GregorianCalendar.DAY_OF_MONTH)) {
+				years--;
+			}
+			if (years < 18) {
+				errors.rejectValue("birthday", "", "Пользователь должен быть старше 18 лет");
 
-		GregorianCalendar birthDay = new GregorianCalendar();
-		birthDay.setTime(date);
-		GregorianCalendar checkDay = new GregorianCalendar();
-		int years = checkDay.get(GregorianCalendar.YEAR) - birthDay.get(GregorianCalendar.YEAR);
-		int checkMonth = checkDay.get(GregorianCalendar.MONTH);
-		int birthMonth = birthDay.get(GregorianCalendar.MONTH);
-		if (checkMonth < birthMonth) {
-			years--;
-		} else if (checkMonth == birthMonth
-				&& checkDay.get(GregorianCalendar.DAY_OF_MONTH) < birthDay.get(GregorianCalendar.DAY_OF_MONTH)) {
-			years--;
+			}
 		}
-		if (years < 18) {
-			errors.rejectValue("birthday", "", "Пользователь должен быть старше 18 лет");
 
-		}
 	}
 
 }

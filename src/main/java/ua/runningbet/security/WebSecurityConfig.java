@@ -29,7 +29,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
 		.antMatchers("/**","/resources").permitAll()
-		.antMatchers("/").hasAuthority("ROLE_user")
+		.antMatchers("/","/cabinet/**").hasAuthority("ROLE_user")
 		.antMatchers("/","/admin/**","/resources").hasAuthority("ROLE_admin").anyRequest().fullyAuthenticated()
 				.and()
 				.exceptionHandling().accessDeniedPage("/login")

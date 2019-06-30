@@ -30,10 +30,11 @@
 			</div>
 			<div class="head-buttons">
 				<div class="button btn-group btn-group-lg" role="group">
-					<button type="button" class="btn btn-warning">Кабинет</button>
+					<input sec:authorize="isAuthenticated()"
+						class="btn btn-warning" type="button" value="Кабинет"
+						onclick="window.location.href='/cabinet'" />
 					<button type="button" class="btn btn-warning">Победители</button>
 					<button type="button" class="btn btn-warning">О нас</button>
-
 					<input sec:authorize="hasRole('ROLE_admin')"
 						class="btn btn-warning" type="button" value="Администратор"
 						onclick="window.location.href='/admin'" />

@@ -231,6 +231,23 @@
 	font-size: 20px;
 	display: flex;
 	flex-direction: row;
-	display: flex;
 	justify-content: center;
+}
+
+.cabinet-info-text {
+	margin-top: 10px;
+	width: 300px;
+	font-size: 30px;
+}
+
+.user-info-container {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+}
+
+.edition-button-container {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
 }
