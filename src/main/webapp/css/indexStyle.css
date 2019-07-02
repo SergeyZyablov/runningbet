@@ -47,7 +47,7 @@
 	height: 100px;
 	border-radius: 0px;
 	font-size: 24px;
-	background-color: #F6C105;
+	background-color: #ffce1f;
 }
 
 .content-container {
@@ -60,12 +60,21 @@
 	background-color: rgba(0, 0, 0, 0.6);
 }
 
+.title {
+	margin-top: 60px;
+	color: white;
+	display: flex;
+	justify-content: center;
+	margin-left: 40px;
+	margin-right: 40px;
+}
+
 .statistics {
 	color: white;
 	height: 100%;
 	margin-left: 40px;
 	margin-right: 40px;
-	margin-top: 100px;
+	/* margin-top: 100px; */
 	margin-bottom: 0px;
 	background-color: rgba(0, 0, 0, 0.7);
 }
@@ -86,7 +95,7 @@
 .yelow {
 	border: 0px;
 	margin-top: 0px;
-	background-color: #F6C105;
+	background-color: #ffce1f;
 	color: black;
 	border-radius: 0px;
 }

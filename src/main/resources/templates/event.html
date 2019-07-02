@@ -4,7 +4,7 @@
 	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
 	class="h-100">
 <head>
-<title>Event</title>
+<title>События</title>
 <link rel="stylesheet" href="/css/indexStyle.css">
 <link rel="stylesheet" href="/css/headerStyle.css">
 <script src="https://kit.fontawesome.com/8d01d54a35.js"></script>
@@ -30,6 +30,9 @@
 		<div class="menu-container"
 			th:insert="fragments/adminButtons :: buttons">Panel</div>
 		<div class="content-container">
+			<div class="title">
+				<h1>События</h1>
+			</div>
 			<div class="statistics">
 				<div class="yelow user-row">
 					<form th:action="@{/admin/event/add}" method="get">

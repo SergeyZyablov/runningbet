@@ -4,7 +4,7 @@
 	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
 	class="h-100">
 <head>
-<title>Category</title>
+<title th:text="${event.name}">Category</title>
 <link rel="stylesheet" href="/css/indexStyle.css">
 <link rel="stylesheet" href="/css/headerStyle.css">
 <script src="https://kit.fontawesome.com/8d01d54a35.js"></script>
@@ -42,7 +42,8 @@
 		<div class="slots" th:each="slot : ${slots}">
 			<div class="slot" th:text="${slot.horse.name}"></div>
 			<div class="slot" th:text="${slot.coefficient}"></div>
-			<input type="text" class="slot" id="name" name="bet">
+			<input sec:authorize="hasRole('ROLE_user')" type=" text" class="slot"
+				id="name" name="bet">
 
 			<div class="add-slot">
 				<th:block sec:authorize="hasRole('ROLE_admin')">
@@ -58,7 +59,7 @@
 					<form th:action="@{/user/setBet}" method="post">
 						<input type="text" name="id" th:value="${slot.id}" hidden /> <input
 							type="text" name="eventId" th:value="${event.id}" hidden />
-						<button class="yelow" type="submit">
+						<button sec:authorize="hasRole('ROLE_user')" class="yelow" type="submit">
 							<i class="fas fa-check"></i>
 						</button>
 					</form>

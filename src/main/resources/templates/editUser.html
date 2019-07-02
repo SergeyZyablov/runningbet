@@ -27,6 +27,9 @@
 <body class="index-body">
 	<div th:insert="fragments/header :: header">Panel</div>
 	<div class="content-container">
+		<div class="title">
+			<h1>Редактирование пользователя</h1>
+		</div>
 		<div class="statistics">
 			<form th:action="@{/cabinet/editing}" th:object="${user}"
 				method="post">

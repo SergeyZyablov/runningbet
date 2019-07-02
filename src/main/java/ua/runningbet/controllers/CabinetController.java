@@ -48,14 +48,16 @@ public class CabinetController {
 	public String editUser(@Valid @ModelAttribute User user, BindingResult bindingResult, Model model, Errors errors) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		User loginedUser = userRepository.findByLogin(auth.getName()).orElse(new User());
-		loginedUser.setName(user.getName());
-		loginedUser.setSurname(user.getSurname());
-		loginedUser.setLogin(user.getLogin());
-		loginedUser.setEmail(user.getEmail());
-		loginedUser.setBirthday(user.getBirthday());
+		/*
+		 * loginedUser.setName(user.getName());
+		 * loginedUser.setSurname(user.getSurname());
+		 * loginedUser.setLogin(user.getLogin()); loginedUser.setEmail(user.getEmail());
+		 * loginedUser.setBirthday(user.getBirthday());
+		 */
 		userValidator.validate(loginedUser, errors);
 		if (bindingResult.hasErrors()) {
-			return "redirect:/cabinet/editing";
+			model.addAttribute("logenedUser", loginedUser);
+			return "editUser";
 		}
 		return "/cabinet";
 	}
