@@ -9,14 +9,35 @@
 	width: 100%;
 }
 
+.bolocked-container {
+	background-color: rgba(0, 0, 0, 0.7);
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-right: -50%;
+	transform: translate(-50%, -50%)
+}
+
+.blocked-icon {
+	color: white;
+	font-size: 300px;
+}
+
+.blocked-text {
+	color: white;
+	font-size: 50px;
+}
+
 .slide {
 	width: 400px;
 	height: 300px;
 	background-image: url(/images/logo.png);
 	background-repeat: no-repeat;
 	background-size: contain;
-	background-image: url(/images/logo.png);
-	background-image: url(/images/logo.png);
 }
 
 .main-container {
@@ -88,8 +109,21 @@
 }
 
 .information-container {
+	overflow-x: hidden;
 	margin-left: 10px;
 	width: 150px;
+}
+
+.roles-container {
+	margin-left: 10px;
+	width: 150px;
+}
+
+.block-container {
+	width: 27%;
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
 }
 
 .yelow {

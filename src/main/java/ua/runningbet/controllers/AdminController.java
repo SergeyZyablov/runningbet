@@ -9,6 +9,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import ua.runningbet.models.User;
 import ua.runningbet.repositpries.UserRepository;
@@ -51,6 +53,22 @@ public class AdminController {
 		if (page > 0) {
 			page--;
 		}
+		return "redirect:/admin/users";
+	}
+
+	@PostMapping("/admin/user/lock")
+	public String lockUser(@ModelAttribute("userLogin") String userLogin) {
+		User user = userRepository.findOneByLogin(userLogin);
+		user.setBlocked("true");
+		userRepository.save(user);
+		return "redirect:/admin/users";
+	}
+
+	@PostMapping("/admin/user/unlock")
+	public String unlockUser(@ModelAttribute("userLogin") String userLogin) {
+		User user = userRepository.findOneByLogin(userLogin);
+		user.setBlocked("false");
+		userRepository.save(user);
 		return "redirect:/admin/users";
 	}
 }

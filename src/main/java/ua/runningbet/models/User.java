@@ -15,7 +15,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import lombok.Data;
@@ -43,6 +42,7 @@ public class User {
 	@NotEmpty(message = "Поле не заполнено")
 	@Size(min = 6, max = 50, message = "Пароль должен быть больше 6 знаков")
 	private String password;
+	private String blocked;
 	private Float mony;
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "user_role", joinColumns = {
