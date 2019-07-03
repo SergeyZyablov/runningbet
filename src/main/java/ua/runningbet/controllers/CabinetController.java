@@ -1,5 +1,7 @@
 package ua.runningbet.controllers;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +34,7 @@ public class CabinetController {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		User user = userRepository.findByLogin(auth.getName()).orElse(new User());
 		model.addAttribute("logenedUser", user);
+		List<User> users = userRepository.findAll();
 		return "cabinet";
 	}
 
@@ -45,21 +48,22 @@ public class CabinetController {
 	}
 
 	@PostMapping(value = "/cabinet/editing")
-	public String editUser(@Valid @ModelAttribute User user, BindingResult bindingResult, Model model, Errors errors) {
+	public String editUser(@ModelAttribute User user, BindingResult bindingResult, Model model, Errors errors) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		User loginedUser = userRepository.findByLogin(auth.getName()).orElse(new User());
-		/*
-		 * loginedUser.setName(user.getName());
-		 * loginedUser.setSurname(user.getSurname());
-		 * loginedUser.setLogin(user.getLogin()); loginedUser.setEmail(user.getEmail());
-		 * loginedUser.setBirthday(user.getBirthday());
-		 */
-		userValidator.validate(loginedUser, errors);
+		userValidator.editionValidation(loginedUser, user, errors);
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("logenedUser", loginedUser);
 			return "editUser";
 		}
-		return "/cabinet";
+		loginedUser.setName(user.getName());
+		loginedUser.setSurname(user.getSurname());
+		loginedUser.setLogin(user.getLogin());
+		loginedUser.setEmail(user.getEmail());
+		loginedUser.setBirthday(user.getBirthday());
+		loginedUser.setPassword(user.getPassword());
+		userRepository.saveAndFlush(loginedUser);
+		return "redirect:/cabinet";
 	}
 
 }

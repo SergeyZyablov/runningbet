@@ -7,7 +7,8 @@
 <title>Кабинет</title>
 <link rel="stylesheet" href="/css/indexStyle.css">
 <link rel="stylesheet" href="/css/headerStyle.css">
-<script src="https://kit.fontawesome.com/8d01d54a35.js"></script>
+<link href="/icons/css/all.css" rel="stylesheet">
+<!-- <script src="https://kit.fontawesome.com/8d01d54a35.js"></script> -->
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
@@ -76,6 +77,16 @@
 						class="form-control cabinet-info-text information-container"
 						id="party" name="birthday" min="1900-04-01" max="2100-04-30"
 						th:value="${logenedUser.birthday}">
+				</div>
+
+				<div class="user-info-container">
+					<div class="cabinet-info-text information-container">Пароль:</div>
+					<div class="alert alert-danger"
+						th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+					<input type="password"
+						class="form-control cabinet-info-text information-container"
+						id="password" placeholder="Password" name="password"
+						th:value="${logenedUser.password}">
 				</div>
 				<input type="text" name="id" th:value="${logenedUser.id}" hidden />
 				<div class="edition-button-container">
