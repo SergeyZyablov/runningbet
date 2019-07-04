@@ -89,7 +89,9 @@ public class HourceController {
 	@PostMapping(value = "/hource/remove")
 	public String hourceRemove(String id, Model model) {
 		Horse hource = horceRepository.getOne(Integer.valueOf(id));
-		horceRepository.delete(hource);
+		if (hource.getJockey() == null && hource.getSlots().isEmpty() && hource.getTrainer() == null) {
+			horceRepository.delete(hource);
+		}
 		model.addAttribute("hources", horceRepository.findAll());
 		model.addAttribute("header", "fragments/header");
 		model.addAttribute("buttons", "fragments/adminButtons");

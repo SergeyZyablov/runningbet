@@ -43,7 +43,7 @@
 					</form>
 					<div class="information-container">Название</div>
 					<div class="information-container">Начало</div>
-					<div class="information-container">Конец</div>
+					<div class="information-container">Окончание</div>
 					<div class="information-container">Категория</div>
 					<div class="information-container">Статус</div>
 					<div class="status-container"></div>
@@ -60,9 +60,17 @@
 							<span class="badge badge-danger" th:case="'LIVE'">Live</span> <span
 								class="badge badge-success" th:case="'FUTURE'">Future</span> <span
 								class="badge badge-secondary" th:case="'FINISHED'">Finished</span>
+							<span class="badge badge-light" th:case="'NOT READY'">NOT
+								READY</span>
 						</div>
 					</div>
 					<div class="status-container">
+						<form th:action="@{/event}" method="get">
+							<input type="text" name="id" th:value="${events.id}" hidden />
+							<button class="yelow" type="submit">
+								<i class="fas fa-pencil-alt"></i>
+							</button>
+						</form>
 						<form th:action="@{/event/remove}" method="post">
 							<input type="text" name="id" th:value="${events.id}" hidden />
 							<button class="yelow" type="submit">

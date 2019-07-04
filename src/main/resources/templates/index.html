@@ -29,13 +29,16 @@
 
 	<div class="event-container">
 		<div th:each="events : ${events}">
-			<form th:action="@{/event}" method="get">
+			<form th:unless="${events.getStatus().getName() == 'NOT READY'}"
+				th:action="@{/event}" method="get">
 				<button class="event-block" type="submit">
 					<div class="home-status-container">
 						<div th:switch="${events.getStatus().getName()}">
 							<span class="badge badge-danger" th:case="'LIVE'">Live</span> <span
 								class="badge badge-success" th:case="'FUTURE'">Future</span> <span
 								class="badge badge-secondary" th:case="'FINISHED'">Finished</span>
+							<span class="badge badge-light" th:case="'NOT READY'">NOT
+								READY</span>
 						</div>
 					</div>
 					<div class="eveny-name">

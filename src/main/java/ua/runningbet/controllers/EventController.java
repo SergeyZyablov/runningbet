@@ -2,8 +2,6 @@ package ua.runningbet.controllers;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.sql.Date;
-import java.util.List;
 
 import javax.validation.Valid;
 
@@ -46,22 +44,6 @@ public class EventController {
 
 	@GetMapping(value = "/admin/event")
 	public String eventPage(Model model) {
-		java.util.Date date = new java.util.Date();
-		Date dateSQL = new Date(date.getTime());
-		List<Event> events = eventRepository.findAll();
-		for (int i = 0; i < events.size(); i++) {
-			if (events.get(i).getStartDate().toString().equalsIgnoreCase(dateSQL.toString())) {
-				events.get(i).setStatus(statusRepository.findByName("LIVE"));
-			} else if (events.get(i).getStartDate().after(dateSQL)) {
-				events.get(i).setStatus(statusRepository.findByName("FUTURE"));
-			}
-			/*
-			 * else if (events.get(i).getStartDate().before(dateSQL)) {
-			 * events.get(i).setStatus(statusRepository.findByName("FINISHED")); }
-			 */
-			eventRepository.save(events.get(i));
-		}
-
 		Pageable pageNumber = PageRequest.of(page, PAGE_SIZE);
 		Page<Event> pageabledEvents = eventRepository.findAll(pageNumber);
 		model.addAttribute("events", pageabledEvents);
@@ -130,7 +112,9 @@ public class EventController {
 	@PostMapping(value = "/event/remove")
 	public String removeEvent(String id, Model model) {
 		Event event = eventRepository.findOneById(Integer.valueOf(id));
-		eventRepository.delete(event);
+		if (event.getSlots().isEmpty()) {
+			eventRepository.delete(event);
+		}
 		model.addAttribute("events", eventRepository.findAll());
 		model.addAttribute("header", "fragments/header");
 		model.addAttribute("buttons", "fragments/adminButtons");

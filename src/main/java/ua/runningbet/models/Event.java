@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -32,7 +33,7 @@ public class Event {
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
 	private Date endDate;
 
-	@OneToMany(mappedBy = "event")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "event")
 	private List<Slot> slots;
 
 	@ManyToOne
