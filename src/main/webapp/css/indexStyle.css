@@ -221,13 +221,34 @@
 }
 
 .slots {
+	overflow-x: hidden;
+	margin-bottom: 10px;
 	width: 100%;
+	height: 40px;
 	display: flex;
 	flex-direction: row;
 	justify-content: flex-start;
 	align-items: stretch;
-	display: flex;
 	background-color: rgba(0, 0, 0, 0.7);
+	display: flex;
+}
+
+.slots::-webkit-scrollbar { /* chrome based */
+	width: 0px; /* ширина scrollbar'a */
+	background: transparent; /* опционально */
+}
+
+.set-bet-container {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	width: 80%;
+}
+
+.slot-remove {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
 }
 
 .slot {

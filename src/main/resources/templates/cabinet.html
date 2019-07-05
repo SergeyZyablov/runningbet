@@ -59,6 +59,11 @@
 					<div class="cabinet-info-text information-container"
 						th:text="${logenedUser.birthday}"></div>
 				</div>
+				<div class="user-info-container">
+					<div class="cabinet-info-text information-container">Баланс:</div>
+					<div class="cabinet-info-text information-container"
+						th:text="${logenedUser.mony}"></div>
+				</div>
 				<input type="text" name="id" th:value="${logenedUser.id}" hidden />
 				<div class="edition-button-container">
 					<button type="submit" class="btn btn-warning" data-toggle="tooltip"
@@ -67,6 +72,39 @@
 					</button>
 				</div>
 			</form>
+		</div>
+		<div class="title">
+			<h1>История ставок</h1>
+		</div>
+		<div class="statistics">
+			<div class="slots">
+				<div class="slot">Лошадь</div>
+				<div class="slot">Коэффициен</div>
+				<div class="slot">Ставка</div>
+				<div class="slot">Позиция</div>
+				<div class="slot">Событие</div>
+				<div class="slot">Статус события</div>
+				<div class="slot">Результат</div>
+			</div>
+			<div class="slots" th:each="slots : ${slots}">
+				<div class="slot" th:text="${slots.horse.name}"
+					data-toggle="tooltip" data-placement="bottom"
+					th:title="${slots.horse.name}"></div>
+				<div class="slot" th:text="${slots.coefficient}"></div>
+				<div class="slot" th:text="${slots.bet}"></div>
+				<div class="slot" th:text="${slots.position}"></div>
+				<div class="slot" th:text="${slots.event.name}"
+					data-toggle="tooltip" data-placement="bottom"
+					th:title="${slots.event.name}"></div>
+				<div style="font-size: 24px" th:switch="${slots.event.status.name}">
+					<span class="slot badge badge-danger" th:case="'LIVE'">Live</span>
+					<span class="slot badge badge-success" th:case="'FUTURE'">Future</span>
+					<span class="slot badge badge-secondary" th:case="'FINISHED'">Finished</span>
+					<span class="slot badge badge-light" th:case="'NOT READY'">NOT
+						READY</span>
+				</div>
+				<div class="slot" th:text="${slots.status}"></div>
+			</div>
 		</div>
 	</div>
 </body>

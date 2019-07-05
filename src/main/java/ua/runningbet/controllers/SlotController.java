@@ -1,5 +1,7 @@
 package ua.runningbet.controllers;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +43,13 @@ public class SlotController {
 			model.addAttribute("hources", hourceRepository.findAll());
 			model.addAttribute("header", "fragments/header");
 			model.addAttribute("buttons", "fragments/adminButtons");
-			return "eventPage";
+			return "redirect:/event?eventId=" + event.getId();
+		}
+		List<Slot> slots = event.getSlots();
+		for (int i = 0; i < slots.size(); i++) {
+			if (slots.get(i).getHorse().getId() == hourceRepository.findOneByName(hource).getId()) {
+				return "redirect:/event?eventId=" + event.getId();
+			}
 		}
 
 		slotRepository.save(slot);
@@ -50,7 +58,7 @@ public class SlotController {
 		model.addAttribute("hources", hourceRepository.findAll());
 		model.addAttribute("header", "fragments/header");
 		model.addAttribute("buttons", "fragments/adminButtons");
-		return "eventPage";
+		return "redirect:/event?eventId=" + event.getId();
 	}
 
 	@PostMapping(value = "/slot/remove")
@@ -62,7 +70,7 @@ public class SlotController {
 		model.addAttribute("hources", hourceRepository.findAll());
 		model.addAttribute("header", "fragments/header");
 		model.addAttribute("buttons", "fragments/adminButtons");
-		return "eventPage";
+		return "redirect:/event?eventId=" + event.getId();
 	}
 
 }

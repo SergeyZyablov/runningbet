@@ -2,7 +2,6 @@ package ua.runningbet.controllers;
 
 import java.util.List;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -33,6 +32,7 @@ public class CabinetController {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		User user = userRepository.findByLogin(auth.getName()).orElse(new User());
 		model.addAttribute("logenedUser", user);
+		model.addAttribute("slots", user.getSlots());
 		List<User> users = userRepository.findAll();
 		return "cabinet";
 	}

@@ -2,6 +2,10 @@ package ua.runningbet.controllers;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import javax.validation.Valid;
 
@@ -98,11 +102,22 @@ public class EventController {
 	}
 
 	@GetMapping(value = "/event")
-	public String oneEventPage(String id, Model model) {
-		Event event = eventRepository.findOneById(Integer.valueOf(id));
+	public String oneEventPage(String eventId, Model model) {
+		Event event = eventRepository.findOneById(Integer.valueOf(eventId));
+
+		List<Slot> slots = event.getSlots();
+		for (int j = 0; j < slots.size() * 2; j++) {
+			for (int i = 0; i < slots.size(); i++) {
+				if (slots.get(i).getBet() != null) {
+					slots.remove(slots.get(i));
+				}
+			}
+		}
+
+		model.addAttribute("slotsSize", event.getSlots().size());
 		model.addAttribute("slot", new Slot());
 		model.addAttribute("event", event);
-		model.addAttribute("slots", event.getSlots());
+		model.addAttribute("slots", slots);
 		model.addAttribute("hources", hourceRepository.findAll());
 		model.addAttribute("header", "fragments/header");
 		model.addAttribute("buttons", "fragments/adminButtons");

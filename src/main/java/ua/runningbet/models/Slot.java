@@ -25,13 +25,15 @@ public class Slot {
 	@NotNull
 	private Float coefficient;
 	private Float bet;
-	
+	private Integer position;
+	private String status;
+
 	@ManyToOne
 	private Horse horse;
-	
-	@ManyToMany(mappedBy="slots")
+
+	@ManyToMany(mappedBy = "slots")
 	private List<User> users;
-	
+
 	@ManyToOne
 	private Event event;
 }

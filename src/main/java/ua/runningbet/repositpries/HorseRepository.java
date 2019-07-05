@@ -8,4 +8,6 @@ public interface HorseRepository extends JpaRepository<Horse, Integer> {
 	public Horse findOneByName(String name);
 
 	public boolean existsByName(String name);
+
+	public Horse findOneById(Integer valueOf);
 }

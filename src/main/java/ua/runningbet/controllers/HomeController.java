@@ -1,7 +1,5 @@
 package ua.runningbet.controllers;
 
-import java.sql.Date;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -14,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import ua.runningbet.models.User;
 import ua.runningbet.repositpries.EventRepository;
-import ua.runningbet.repositpries.StatusRepository;
 import ua.runningbet.repositpries.UserRepository;
 
 @Controller
@@ -22,8 +19,6 @@ public class HomeController {
 
 	@Autowired
 	private EventRepository eventRepository;
-	@Autowired
-	private StatusRepository statusRepository;
 	@Autowired
 	private UserRepository userRepository;
 

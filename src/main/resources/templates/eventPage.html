@@ -35,32 +35,45 @@
 		</div>
 		<div>Слоты:</div>
 		<div class="slots">
-			<div class="slot">Лошадь</div>
+			<div style="width: 18.5%" class="slot">Лошадь</div>
 			<div class="slot">Коэффициен</div>
-			<div class="slot">Ставка</div>
+			<div sec:authorize="hasRole('ROLE_user')" class="slot">Ставка</div>
+			<div sec:authorize="hasRole('ROLE_user')" class="slot">Позиция</div>
+			<div style="width: 65%" class="add-slot"></div>
 		</div>
 		<div class="slots" th:each="slot : ${slots}">
-			<div class="slot" th:text="${slot.horse.name}"></div>
-			<div class="slot" th:text="${slot.coefficient}"></div>
-			<input sec:authorize="hasRole('ROLE_user')" type=" text" class="slot"
-				id="name" name="bet">
+			<div style="width: 17%" class="slot" th:text="${slot.horse.name}"></div>
+			<div style="width: 200px" class="slot" th:text="${slot.coefficient}"></div>
+			<form class="set-bet-container" th:action="@{/user/bet/add}"
+				method="post">
+				<div>
+					<input sec:authorize="hasRole('ROLE_user')" style="width: 170px"
+						type="text" class="slot" id="name" name="bet"> <input
+						sec:authorize="hasRole('ROLE_user')" type="number" class="slot"
+						id="position" name="position" value="1" min="1" th:max="${slotsSize}">
+				</div>
 
-			<div class="add-slot">
+
+				<th:block sec:authorize="isAuthenticated()">
+					<input type="text" name="horseId" th:value="${slot.horse.id}" hidden />
+					<input type="text" name="coefficient" th:value="${slot.coefficient}"
+						hidden />
+					<input type="text" name="slotId" th:value="${slot.id}" hidden />
+					<input type="text" name="eventId" th:value="${event.id}" hidden />
+					<button sec:authorize="hasRole('ROLE_user')" class="yelow"
+						type="submit">
+						<i class="fas fa-check"></i>
+					</button>
+
+				</th:block>
+			</form>
+			<div class="slot-remove">
 				<th:block sec:authorize="hasRole('ROLE_admin')">
 					<form th:action="@{/slot/remove}" method="post">
 						<input type="text" name="id" th:value="${slot.id}" hidden /> <input
 							type="text" name="eventId" th:value="${event.id}" hidden />
 						<button class="yelow" type="submit">
 							<i class="fas fa-backspace"></i>
-						</button>
-					</form>
-				</th:block>
-				<th:block sec:authorize="isAuthenticated()">
-					<form th:action="@{/user/setBet}" method="post">
-						<input type="text" name="id" th:value="${slot.id}" hidden /> <input
-							type="text" name="eventId" th:value="${event.id}" hidden />
-						<button sec:authorize="hasRole('ROLE_user')" class="yelow" type="submit">
-							<i class="fas fa-check"></i>
 						</button>
 					</form>
 				</th:block>
