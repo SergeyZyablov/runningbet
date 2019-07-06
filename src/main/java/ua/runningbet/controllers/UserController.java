@@ -2,16 +2,11 @@ package ua.runningbet.controllers;
 
 import java.util.List;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import ua.runningbet.models.Event;
@@ -20,7 +15,6 @@ import ua.runningbet.models.Slot;
 import ua.runningbet.models.User;
 import ua.runningbet.repositpries.EventRepository;
 import ua.runningbet.repositpries.HorseRepository;
-import ua.runningbet.repositpries.SlotRepository;
 import ua.runningbet.repositpries.UserRepository;
 
 @Controller
@@ -29,8 +23,6 @@ public class UserController {
 	private UserRepository userRepository;
 	@Autowired
 	private EventRepository eventRepository;
-	@Autowired
-	private SlotRepository slotRepository;
 	@Autowired
 	private HorseRepository horseRepository;
 

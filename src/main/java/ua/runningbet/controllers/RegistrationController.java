@@ -45,6 +45,7 @@ public class RegistrationController {
 		List<Role> roles = new ArrayList<>();
 		roles.add(userRole);
 		user.setRoles(roles);
+		user.setWins(0);
 		user.setBlocked("false");
 		userRepository.save(user);
 		return "redirect:/login";

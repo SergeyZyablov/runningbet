@@ -103,7 +103,10 @@
 					<span class="slot badge badge-light" th:case="'NOT READY'">NOT
 						READY</span>
 				</div>
-				<div class="slot" th:text="${slots.status}"></div>
+				<div style="font-size: 24px" th:switch="${slots.status}">
+					<span class="slot badge badge-danger" th:case="'LOOS'">LOOS</span>
+					<span class="slot badge badge-success" th:case="'WIN'">WIN</span>
+				</div>
 			</div>
 		</div>
 	</div>
