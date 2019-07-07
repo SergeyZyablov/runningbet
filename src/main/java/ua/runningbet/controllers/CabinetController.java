@@ -23,8 +23,6 @@ public class CabinetController {
 	@Autowired
 	private UserRepository userRepository;
 	@Autowired
-	private SlotRepository slotRepositor;
-	@Autowired
 	private UserValidator userValidator;
 
 	@GetMapping(value = "/cabinet")
@@ -61,6 +59,15 @@ public class CabinetController {
 		loginedUser.setEmail(user.getEmail());
 		loginedUser.setBirthday(user.getBirthday());
 		loginedUser.setPassword(user.getPassword());
+		userRepository.saveAndFlush(loginedUser);
+		return "redirect:/cabinet";
+	}
+
+	@PostMapping(value = "/cabinet/mony/add")
+	public String monyAdd(String payment, Model model) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		User loginedUser = userRepository.findByLogin(auth.getName()).orElse(new User());
+		loginedUser.setMony(loginedUser.getMony() + Integer.valueOf(payment));
 		userRepository.saveAndFlush(loginedUser);
 		return "redirect:/cabinet";
 	}

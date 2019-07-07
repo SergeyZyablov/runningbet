@@ -34,6 +34,7 @@ public class HorseRunning {
 
 		if (eventRepository.existsByStatusName("LIVE")) {
 			Event event = eventRepository.findOneByStatusName("LIVE");
+			event.setStatus(statusRepository.findByName("FINISHED"));
 			List<Slot> slots = new ArrayList<>();
 			List<Slot> userSlots = event.getSlots();
 
@@ -54,6 +55,10 @@ public class HorseRunning {
 					nums.add(rnd);
 				}
 			}
+			for (int i = 0; i < slots.size(); i++) {
+				slots.get(i).setStatus(nums.get(i).toString());
+				slotRepository.save(slots.get(i));
+			}
 			for (int i = 0; i < nums.size(); i++) {
 				Slot slot = slots.get(i);
 				for (int j = 0; j < userSlots.size(); j++) {
@@ -67,12 +72,10 @@ public class HorseRunning {
 							users.stream().forEach(e -> e.setWins(e.getWins() + 1));
 						} else {
 							userSlots.get(j).setStatus("LOOS");
-							users.stream().forEach(e -> e.setMony(e.getMony() - bet));
+							/* users.stream().forEach(e -> e.setMony(e.getMony() - bet)); */
 						}
 						users.stream().forEach(e -> userRepository.save(e));
 						slotRepository.save(userSlots.get(j));
-
-						event.setStatus(statusRepository.findByName("FINISHED"));
 						eventRepository.save(event);
 
 					}

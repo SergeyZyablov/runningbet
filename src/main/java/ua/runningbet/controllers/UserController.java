@@ -43,6 +43,7 @@ public class UserController {
 		slot.setHorse(horse);
 		List<Slot> slots = user.getSlots();
 		slots.add(slot);
+		user.setMony(user.getMony() - slot.getBet());
 		userRepository.save(user);
 		return "redirect:/";
 	}

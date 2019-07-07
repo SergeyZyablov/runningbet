@@ -46,6 +46,7 @@ public class RegistrationController {
 		roles.add(userRole);
 		user.setRoles(roles);
 		user.setWins(0);
+		user.setMony(100.0f);
 		user.setBlocked("false");
 		userRepository.save(user);
 		return "redirect:/login";

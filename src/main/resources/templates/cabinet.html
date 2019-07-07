@@ -31,39 +31,62 @@
 			<h1>Кабинет</h1>
 		</div>
 		<div class="statistics">
+
+			<div class="user-info-container">
+				<div class="cabinet-info-text information-container">Имя:</div>
+				<div class="cabinet-info-text information-container"
+					th:text="${logenedUser.name}"></div>
+			</div>
+			<div class="user-info-container">
+				<div
+					class="cabinet-info-text cabinet-info-text information-container">Фамилия:</div>
+				<div class="cabinet-info-text information-container"
+					th:text="${logenedUser.surname}"></div>
+			</div>
+			<div class="user-info-container">
+				<div class="cabinet-info-text information-container">Почта:</div>
+				<div class="cabinet-info-text information-container"
+					th:text="${logenedUser.email}"></div>
+			</div>
+			<div class="user-info-container">
+				<div class="cabinet-info-text information-container">Логин:</div>
+				<div class="cabinet-info-text information-container"
+					th:text="${logenedUser.login}"></div>
+			</div>
+			<div class="user-info-container">
+				<div class="cabinet-info-text information-container">День
+					рождения:</div>
+				<div class="cabinet-info-text information-container"
+					th:text="${logenedUser.birthday}"></div>
+			</div>
+			<div class="user-info-container">
+				<div class="cabinet-info-text information-container">Баланс:</div>
+				<div style="width: 100px"
+					class="cabinet-info-text information-container"
+					th:text="${logenedUser.mony}"></div>
+
+				<div class="btn-group dropright">
+					<button style="height: 45px; margin-top: 10px;" type="button"
+						class="btn btn-warning dropdown-toggle" data-toggle="dropdown"
+						aria-haspopup="true" aria-expanded="false">
+						<i class="fas fa-coins"></i>
+					</button>
+					<div style="width: 250px; height: 0px; padding: 0px"
+						class="dropdown-menu">
+						<form th:action="@{/cabinet/mony/add}" method="post">
+							<input type="number" class="slot" id="position" name="payment"
+								value="100" min="1" max="9999">
+							<button style="height: 42px; margin-bottom: 6px" type="submit"
+								class="btn btn-warning" data-toggle="tooltip"
+								data-placement="top" title="Пополнить счет">
+								<i class="fas fa-plus"></i>
+							</button>
+						</form>
+					</div>
+				</div>
+
+			</div>
 			<form th:action="@{/cabinet/editing}" method="get">
-				<div class="user-info-container">
-					<div class="cabinet-info-text information-container">Имя:</div>
-					<div class="cabinet-info-text information-container"
-						th:text="${logenedUser.name}"></div>
-				</div>
-				<div class="user-info-container">
-					<div
-						class="cabinet-info-text cabinet-info-text information-container">Фамилия:</div>
-					<div class="cabinet-info-text information-container"
-						th:text="${logenedUser.surname}"></div>
-				</div>
-				<div class="user-info-container">
-					<div class="cabinet-info-text information-container">Почта:</div>
-					<div class="cabinet-info-text information-container"
-						th:text="${logenedUser.email}"></div>
-				</div>
-				<div class="user-info-container">
-					<div class="cabinet-info-text information-container">Логин:</div>
-					<div class="cabinet-info-text information-container"
-						th:text="${logenedUser.login}"></div>
-				</div>
-				<div class="user-info-container">
-					<div class="cabinet-info-text information-container">День
-						рождения:</div>
-					<div class="cabinet-info-text information-container"
-						th:text="${logenedUser.birthday}"></div>
-				</div>
-				<div class="user-info-container">
-					<div class="cabinet-info-text information-container">Баланс:</div>
-					<div class="cabinet-info-text information-container"
-						th:text="${logenedUser.mony}"></div>
-				</div>
 				<input type="text" name="id" th:value="${logenedUser.id}" hidden />
 				<div class="edition-button-container">
 					<button type="submit" class="btn btn-warning" data-toggle="tooltip"
