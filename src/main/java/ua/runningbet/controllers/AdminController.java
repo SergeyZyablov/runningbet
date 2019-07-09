@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,6 +38,35 @@ public class AdminController {
 		Pageable pageNumber = PageRequest.of(page, PAGE_SIZE);
 		Page<User> pageabledUsers = userRepository.findAll(pageNumber);
 		model.addAttribute("users", pageabledUsers);
+		model.addAttribute("header", "fragments/header");
+		model.addAttribute("buttons", "fragments/adminButtons");
+		return "users";
+	}
+
+	@GetMapping(value = "/admin/users/sort/blocked")
+	public String sortBlocked(Model model) {
+		Sort blockedStart = new Sort(Sort.Direction.ASC, "blocked");
+		List<User> users = userRepository.findByBlocked("true", blockedStart);
+		model.addAttribute("users", users);
+		model.addAttribute("header", "fragments/header");
+		model.addAttribute("buttons", "fragments/adminButtons");
+		return "users";
+	}
+
+	@GetMapping(value = "/admin/users/sort/unblocked")
+	public String sortUnlocked(Model model) {
+		Sort blockedStart = new Sort(Sort.Direction.ASC, "blocked");
+		List<User> users = userRepository.findByBlocked("false", blockedStart);
+		model.addAttribute("users", users);
+		model.addAttribute("header", "fragments/header");
+		model.addAttribute("buttons", "fragments/adminButtons");
+		return "users";
+	}
+
+	@GetMapping(value = "/admin/users/find")
+	public String findUser(String userLogin, Model model) {
+		User user = userRepository.findOneByLogin(userLogin);
+		model.addAttribute("users", user);
 		model.addAttribute("header", "fragments/header");
 		model.addAttribute("buttons", "fragments/adminButtons");
 		return "users";

@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import ua.runningbet.models.User;
-import ua.runningbet.repositpries.SlotRepository;
 import ua.runningbet.repositpries.UserRepository;
 import ua.runningbet.valodators.UserValidator;
 

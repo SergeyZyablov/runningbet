@@ -2,6 +2,8 @@ package ua.runningbet.scheduleds;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Stream;
@@ -76,12 +78,25 @@ public class HorseRunning {
 						}
 						users.stream().forEach(e -> userRepository.save(e));
 						slotRepository.save(userSlots.get(j));
+						long nowTime = convertDate(new Date());
+						Date nowDate = new Date(nowTime);
+						event.setEndDate(nowDate);
 						eventRepository.save(event);
 
 					}
 				}
 			}
 		}
+
+	}
+
+	private long convertDate(Date date) {
+		Calendar cal = Calendar.getInstance(); // locale-specific
+		cal.setTime(date);
+		cal.set(Calendar.SECOND, 0);
+		cal.set(Calendar.MILLISECOND, 0);
+		long time = cal.getTimeInMillis();
+		return time;
 
 	}
 }

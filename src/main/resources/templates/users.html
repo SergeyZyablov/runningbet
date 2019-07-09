@@ -40,16 +40,53 @@
 					<div class="information-container">Фамилия</div>
 					<div class="information-container">Счет</div>
 					<div class="information-container">Победы</div>
+					<div class="dropdown">
+						<button
+							class="information-container btn btn-warning dropdown-toggle"
+							type="button" id="dropdownMenuButton" data-toggle="dropdown"
+							aria-haspopup="true" aria-expanded="false">Логин</button>
+						<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+							<form style="width: 100%" th:action="@{/admin/users/find}"
+								method="get">
+								<input type="text" class="form-control" id="login"
+									name="userLogin">
+								<button style="width: 100%" class="btn btn-info" type="submit">
+									<i class="fas fa-search"></i>
+								</button>
+							</form>
+						</div>
+					</div>
 					<div class="information-container">Почта</div>
 					<div class="information-container">Роли</div>
-					<div class="information-container">Блокировка</div>
+					<div class="dropdown">
+						<button
+							class="information-container btn btn-warning dropdown-toggle"
+							type="button" id="dropdownMenuButton" data-toggle="dropdown"
+							aria-haspopup="true" aria-expanded="false">Блокировка</button>
+						<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+							<form style="width: 100%"
+								th:action="@{/admin/users/sort/blocked}" method="get">
+								<button style="width: 100%" class="btn-danger" type="submit">Заблокированные</button>
+							</form>
+							<form style="width: 100%"
+								th:action="@{/admin/users/sort/unblocked}" method="get">
+								<button class="btn-success" type="submit">Не
+									заблокированные</button>
+							</form>
+							<form style="width: 100%" th:action="@{/admin/users}"
+								method="get">
+								<button style="width: 100%" class="btn-info" type="submit">Все</button>
+							</form>
+						</div>
+					</div>
 				</div>
 				<div class="user-row" th:each="users : ${users}">
 					<i class="far fa-user"></i>
 					<div class="information-container" th:text="${users.getName()}"></div>
 					<div class="information-container" th:text="${users.getSurname()}"></div>
 					<div class="information-container" th:text="${users.getMony()}"></div>
-					<div class="information-container">0</div>
+					<div class="information-container" th:text="${users.wins}">0</div>
+					<div class="information-container" th:text="${users.login}">0</div>
 					<div class="information-container" th:text="${users.getEmail()}"
 						data-toggle="tooltip" data-placement="bottom"
 						th:title="${users.getEmail()}"></div>
@@ -72,7 +109,8 @@
 					<div class="block-container">
 						<div th:if="${users.blocked == 'false'}">
 							<form th:action="@{/admin/user/lock}" method="post">
-								<input type="text" name="userLogin" th:value="${users.login}" hidden />
+								<input type="text" name="userLogin" th:value="${users.login}"
+									hidden />
 								<button class="yelow" type="submit">
 									<i class="fas fa-lock"></i>
 								</button>
@@ -80,7 +118,8 @@
 						</div>
 						<div th:if="${users.blocked == 'true'}">
 							<form th:action="@{/admin/user/unlock}" method="post">
-								<input type="text" name="userLogin" th:value="${users.login}" hidden />
+								<input type="text" name="userLogin" th:value="${users.login}"
+									hidden />
 								<button class="yelow" type="submit">
 									<i class="fas fa-lock-open"></i>
 								</button>
