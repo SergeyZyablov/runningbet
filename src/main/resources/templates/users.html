@@ -57,7 +57,7 @@
 						</div>
 					</div>
 					<div class="information-container">Почта</div>
-					<div class="information-container">Роли</div>
+					<div class="information-container">Роль</div>
 					<div class="dropdown">
 						<button
 							class="information-container btn btn-warning dropdown-toggle"
@@ -90,15 +90,34 @@
 					<div class="information-container" th:text="${users.getEmail()}"
 						data-toggle="tooltip" data-placement="bottom"
 						th:title="${users.getEmail()}"></div>
+
 					<div class="roles-container btn-group">
 						<button class="btn btn-secondary btn-sm dropdown-toggle"
 							type="button" data-toggle="dropdown" aria-haspopup="true"
-							aria-expanded="false">Роли:</button>
-						<div class="dropdown-menu">
-							<div>Администратор</div>
-							<div>user</div>
-							<div>admin</div>
+							aria-expanded="false">Роль:</button>
+						<div th:each="roles : ${users.roles}" class="dropdown-menu">
+							<div style="display: flex; justify-content: center;"
+								th:text="${roles.role}"></div>
+							<div th:if="${roles.role == 'admin'}">
+								<form style="width: 100%" th:action="@{/admin/user/role/down}"
+									method="post">
+									<input type="text" name="userLogin" th:value="${users.login}"
+										hidden />
+									<button style="width: 100%" class="btn btn-info" type="submit">Сделать
+										пользователем</button>
+								</form>
+							</div>
+							<div th:if="${roles.role == 'user'}">
+								<form style="width: 100%" th:action="@{/admin/user/role/up}"
+									method="post">
+									<input type="text" name="userLogin" th:value="${users.login}"
+										hidden />
+									<button style="width: 100%" class="btn btn-warning" type="submit">Сделать
+										администратором</button>
+								</form>
+							</div>
 						</div>
+
 					</div>
 					<div th:switch="${users.blocked}">
 						<span class="information-container badge badge-danger"

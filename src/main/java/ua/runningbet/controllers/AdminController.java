@@ -1,5 +1,6 @@
 package ua.runningbet.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import ua.runningbet.models.Role;
 import ua.runningbet.models.User;
+import ua.runningbet.repositpries.RoleRepository;
 import ua.runningbet.repositpries.UserRepository;
 
 @Controller
@@ -22,6 +25,8 @@ public class AdminController {
 	private final int PAGE_SIZE = 15;
 	@Autowired
 	private UserRepository userRepository;
+	@Autowired
+	private RoleRepository roleRepository;
 
 	@GetMapping(value = "/admin")
 	public String statisticsPage(Model model) {
@@ -98,6 +103,28 @@ public class AdminController {
 	public String unlockUser(@ModelAttribute("userLogin") String userLogin) {
 		User user = userRepository.findOneByLogin(userLogin);
 		user.setBlocked("false");
+		userRepository.save(user);
+		return "redirect:/admin/users";
+	}
+
+	@PostMapping("/admin/user/role/up")
+	public String addRoleAdmin(String userLogin, Model model) {
+		User user = userRepository.findOneByLogin(userLogin);
+		List<Role> roles = new ArrayList<>();
+		Role role = roleRepository.findOneByRole("admin");
+		roles.add(role);
+		user.setRoles(roles);
+		userRepository.save(user);
+		return "redirect:/admin/users";
+	}
+
+	@PostMapping("/admin/user/role/down")
+	public String addRoleUser(String userLogin, Model model) {
+		User user = userRepository.findOneByLogin(userLogin);
+		List<Role> roles = new ArrayList<>();
+		Role role = roleRepository.findOneByRole("user");
+		roles.add(role);
+		user.setRoles(roles);
 		userRepository.save(user);
 		return "redirect:/admin/users";
 	}
