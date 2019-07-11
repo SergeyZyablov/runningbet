@@ -55,6 +55,10 @@ public class HomeController {
 
 	@GetMapping("/home/search/category")
 	public String searchByCategory(String category, Model model) {
+		wins = 0;
+		List<User> users = userRepository.findAll();
+		users.stream().forEach(e -> wins += e.getWins());
+		model.addAttribute("wins", wins);
 		model.addAttribute("categories", categoryRepository.findAll());
 		model.addAttribute("events", eventRepository.findByCategoryName(category));
 		model.addAttribute("header", "fragments/header");
@@ -63,6 +67,10 @@ public class HomeController {
 
 	@GetMapping("/home/search/status")
 	public String searchByStatus(String status, Model model) {
+		wins = 0;
+		List<User> users = userRepository.findAll();
+		users.stream().forEach(e -> wins += e.getWins());
+		model.addAttribute("wins", wins);
 		model.addAttribute("categories", categoryRepository.findAll());
 		model.addAttribute("events", eventRepository.findByStatusName(status));
 		model.addAttribute("header", "fragments/header");
@@ -71,6 +79,10 @@ public class HomeController {
 
 	@GetMapping("/home/search/event")
 	public String searchByEventName(String name, Model model) {
+		wins = 0;
+		List<User> users = userRepository.findAll();
+		users.stream().forEach(e -> wins += e.getWins());
+		model.addAttribute("wins", wins);
 		model.addAttribute("categories", categoryRepository.findAll());
 		model.addAttribute("events", eventRepository.findOneByName(name));
 		model.addAttribute("header", "fragments/header");
@@ -79,13 +91,19 @@ public class HomeController {
 
 	@GetMapping("/home/search/date")
 	public String searchByDate(String date, Model model) throws ParseException {
-
+		if (date == "") {
+			return "redirect:/";
+		}
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		java.util.Date parsed = format.parse(date);
 		List<Event> events = eventRepository.findAll();
 		List<Event> sortedEvents = events.stream()
 				.filter(e -> new Date(convertDate(e.getStartDate())).equals(new Date(convertDate(parsed))))
 				.collect(Collectors.toList());
+		wins = 0;
+		List<User> users = userRepository.findAll();
+		users.stream().forEach(e -> wins += e.getWins());
+		model.addAttribute("wins", wins);
 		model.addAttribute("categories", categoryRepository.findAll());
 		model.addAttribute("events", sortedEvents);
 		model.addAttribute("header", "fragments/header");
