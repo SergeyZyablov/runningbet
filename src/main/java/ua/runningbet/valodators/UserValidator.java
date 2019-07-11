@@ -80,7 +80,7 @@ public class UserValidator implements Validator {
 		}
 
 		if (!newUser.getLogin().equals(oldUser.getLogin())) {
-			if (userRepository.existsByLogin(newUser.getLogin())) {
+			if (userRepository.existsByLogin(oldUser.getLogin())) {
 				errors.rejectValue("login", "", "Пользователь с таким логином уже существует");
 			}
 		}

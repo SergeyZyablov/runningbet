@@ -30,7 +30,6 @@ public class CabinetController {
 		User user = userRepository.findByLogin(auth.getName()).orElse(new User());
 		model.addAttribute("logenedUser", user);
 		model.addAttribute("slots", user.getSlots());
-		List<User> users = userRepository.findAll();
 		return "cabinet";
 	}
 
@@ -52,6 +51,17 @@ public class CabinetController {
 			model.addAttribute("logenedUser", loginedUser);
 			return "editUser";
 		}
+		if ((!loginedUser.getLogin().equals(user.getLogin()))
+				|| (!loginedUser.getPassword().equals(user.getPassword()))) {
+			loginedUser.setName(user.getName());
+			loginedUser.setSurname(user.getSurname());
+			loginedUser.setLogin(user.getLogin());
+			loginedUser.setEmail(user.getEmail());
+			loginedUser.setBirthday(user.getBirthday());
+			loginedUser.setPassword(user.getPassword());
+			userRepository.saveAndFlush(loginedUser);
+			return "redirect:/login";
+		}
 		loginedUser.setName(user.getName());
 		loginedUser.setSurname(user.getSurname());
 		loginedUser.setLogin(user.getLogin());
@@ -68,7 +78,9 @@ public class CabinetController {
 		User loginedUser = userRepository.findByLogin(auth.getName()).orElse(new User());
 		loginedUser.setMony(loginedUser.getMony() + Integer.valueOf(payment));
 		userRepository.saveAndFlush(loginedUser);
-		return "redirect:/cabinet";
+		model.addAttribute("logenedUser", loginedUser);
+		model.addAttribute("slots", loginedUser.getSlots());
+		return "cabinet";
 	}
 
 }

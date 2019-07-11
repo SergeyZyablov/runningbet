@@ -27,23 +27,18 @@ public class ScheduledEvent {
 			Date nowDate = new Date(nowTime);
 			long eventTime = convertDate(events.get(i).getStartDate());
 			Date eventDate = new Date(eventTime);
-
 			if (events.get(i).getStatus().getName() != "FINISHED") {
 				if (eventDate.equals(nowDate)) {
 					events.get(i).setStatus(statusRepository.findByName("LIVE"));
 				} else if (eventDate.after(nowDate)) {
 					events.get(i).setStatus(statusRepository.findByName("FUTURE"));
 				}
-
 				if (events.get(i).getSlots().isEmpty()) {
 					events.get(i).setStatus(statusRepository.findByName("NOT READY"));
 				}
 			}
-
 			eventRepository.save(events.get(i));
-
 		}
-
 	}
 
 	private long convertDate(Date date) {

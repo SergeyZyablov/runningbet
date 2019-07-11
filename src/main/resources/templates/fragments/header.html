@@ -30,10 +30,15 @@
 			</div>
 			<div class="head-buttons">
 				<div class="button btn-group btn-group-lg" role="group">
-					<input sec:authorize="isAuthenticated()"
-						class="btn btn-warning" type="button" value="Кабинет"
+					<input sec:authorize="isAuthenticated()" class="btn btn-warning"
+						type="button" value="Кабинет"
 						onclick="window.location.href='/cabinet'" />
-					<button type="button" class="btn btn-warning">Победители</button>
+					<button type="button" class="btn btn-warning">
+						<div class="tools">
+							<div>Побед пользователей:&nbsp;</div>
+							<div th:text="${wins}"></div>
+						</div>
+					</button>
 					<button type="button" class="btn btn-warning">О нас</button>
 					<input sec:authorize="hasRole('ROLE_admin')"
 						class="btn btn-warning" type="button" value="Администратор"

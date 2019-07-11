@@ -26,32 +26,115 @@
 </head>
 <body class="index-body">
 	<div th:insert="fragments/header :: header">Panel</div>
-
-	<div class="event-container">
-		<div th:each="events : ${events}">
-			<form th:unless="${events.getStatus().getName() == 'NOT READY'}"
-				th:action="@{/event}" method="get">
-				<button class="event-block" type="submit">
-					<div class="home-status-container">
-						<div th:switch="${events.getStatus().getName()}">
-							<span class="badge badge-danger" th:case="'LIVE'">Live</span> <span
-								class="badge badge-success" th:case="'FUTURE'">Future</span> <span
-								class="badge badge-secondary" th:case="'FINISHED'">Finished</span>
-							<span class="badge badge-light" th:case="'NOT READY'">NOT
-								READY</span>
+	<div class="cont">
+		<div class="tool-container">
+			<div class="tools">
+				<div class="dropdown">
+					<button class="btn btn-warning btn-lg dropdown-toggle"
+						type="button" id="dropdownMenuButton" data-toggle="dropdown"
+						aria-haspopup="true" aria-expanded="false">Категории</button>
+					<div style="background-color: black; width: 200px;"
+						class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+						<div class="user-row" th:each="categories : ${categories}">
+							<form class="form-search" style="width: 100%"
+								th:action="@{/home/search/category}" method="get">
+								<input type="text" name="category" th:value="${categories.name}"
+									hidden />
+								<button style="width: 100%" class="btn btn-success"
+									type="submit" th:text="${categories.name}"></button>
+							</form>
 						</div>
 					</div>
-					<div class="eveny-name">
-						<h3 th:text="${events.getName()}">-</h3>
+				</div>
+
+				<div class="dropdown">
+					<button class="btn btn-warning btn-lg dropdown-toggle"
+						type="button" id="dropdownMenuButton" data-toggle="dropdown"
+						aria-haspopup="true" aria-expanded="false">Статус</button>
+					<div style="background-color: black;" class="dropdown-menu"
+						aria-labelledby="dropdownMenuButton">
+						<form class="form-search" style="width: 100%"
+							th:action="@{/home/search/status}" method="get">
+							<input type="text" name="status" value="FUTURE" hidden />
+							<button style="width: 100%" class="btn btn-success" type="submit">
+								FUTURE</button>
+						</form>
+						<form class="form-search" style="width: 100%"
+							th:action="@{/home/search/status}" method="get">
+							<input type="text" name="status" value="LIVE" hidden />
+							<button style="width: 100%" class="btn btn-danger" type="submit">
+								LIVE</button>
+						</form>
+						<form class="form-search" style="width: 100%"
+							th:action="@{/home/search/status}" method="get">
+							<input type="text" name="status" value="FINISHED" hidden />
+							<button style="width: 100%" class="btn btn-secondary"
+								type="submit">FINISHED</button>
+						</form>
+						<form class="form-search" style="width: 100%" th:action="@{/}"
+							method="get">
+							<button style="width: 100%" class="btn btn-info" type="submit">ALL</button>
+						</form>
 					</div>
-					<div class="event-info">
-						<div th:text="${events.startDate}">-</div>
-						<div th:text="${events.category.name}">-</div>
+				</div>
+
+				<div class="dropdown">
+					<button class="btn btn-warning btn-lg dropdown-toggle"
+						type="button" id="dropdownMenuButton" data-toggle="dropdown"
+						aria-haspopup="true" aria-expanded="false">Дата</button>
+					<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+						<form class="form-search" style="width: 100%"
+							th:action="@{/home/search/date}" method="get">
+							<input type="date" class="form-control" id="login" name="date">
+							<button style="width: 100%" class="btn btn-info" type="submit">
+								<i class="fas fa-search"></i>
+							</button>
+						</form>
 					</div>
-					<input type="text" name="eventId" th:value="${events.id}" hidden />
-				</button>
-			</form>
+				</div>
+			</div>
+			<div style="font-size: 40px">События</div>
+			<div>
+				<form class="form-search" style="width: 100%"
+					th:action="@{/home/search/event}" method="get">
+					<input type="text" class="form-control" id="login" name="name">
+					<button style="width: 50px" class="btn btn-warning" type="submit"
+						data-toggle="tooltip" data-placement="bottom"
+						title="Поиск события по названию">
+						<i class="fas fa-search"></i>
+					</button>
+				</form>
+			</div>
+
+		</div>
+
+		<div class="event-container">
+			<div th:each="events : ${events}">
+				<form th:unless="${events.getStatus().getName() == 'NOT READY'}"
+					th:action="@{/event}" method="get">
+					<button class="event-block" type="submit">
+						<div class="home-status-container">
+							<div th:switch="${events.getStatus().getName()}">
+								<span class="badge badge-danger" th:case="'LIVE'">Live</span> <span
+									class="badge badge-success" th:case="'FUTURE'">Future</span> <span
+									class="badge badge-secondary" th:case="'FINISHED'">Finished</span>
+								<span class="badge badge-light" th:case="'NOT READY'">NOT
+									READY</span>
+							</div>
+						</div>
+						<div class="eveny-name">
+							<h3 th:text="${events.getName()}">-</h3>
+						</div>
+						<div class="event-info">
+							<div th:text="${events.startDate}">-</div>
+							<div th:text="${events.category.name}">-</div>
+						</div>
+						<input type="text" name="eventId" th:value="${events.id}" hidden />
+					</button>
+				</form>
+			</div>
 		</div>
 	</div>
+
 </body>
 </html>

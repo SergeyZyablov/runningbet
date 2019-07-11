@@ -146,8 +146,38 @@
 	width: 300px;
 }
 
-.event-container {
+.cont {
 	margin-top: 100px;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	flex-wrap: wrap;
+}
+
+.tool-container {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	background-color: #ffce1f;
+}
+
+.tools {
+	display: flex;
+	flex-direction: row;
+}
+
+.form-search {
+	display: flex;
+	flex-direction: row;
+	margin-bottom: 5px;
+}
+
+.event-container {
 	width: 100%;
 	display: flex;
 	flex-direction: row;

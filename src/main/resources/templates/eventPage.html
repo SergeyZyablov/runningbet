@@ -66,8 +66,6 @@
 							id="position" name="position" value="1" min="1"
 							th:max="${slotsSize}">
 					</div>
-
-
 					<th:block sec:authorize="isAuthenticated()">
 						<input type="text" name="horseId" th:value="${slot.horse.id}"
 							hidden />
