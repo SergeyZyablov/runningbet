@@ -13,7 +13,7 @@
 	<artifactId>runningbet</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>runningbet</name>
-	<packaging>war</packaging>
+	<packaging>war</packaging><!-- поменять на jar -->
 
 	<description>Demo project for Spring Boot</description>
 
