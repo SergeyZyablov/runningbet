@@ -88,7 +88,7 @@ public class EventController {
 		if (date.isEmpty()) {
 			return "redirect:/admin/event/add";
 		}
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
+		SimpleDateFormat format = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
 		java.util.Date parsed = format.parse(date);
 		Category category = categoryRepository.findByName(categoryName);
 		event.setStartDate(parsed);

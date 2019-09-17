@@ -42,14 +42,19 @@ a {
 	top: 45px;
 	display: flex;
 	flex-direction: row;
+}
+.head-about-us {
+	position: relative;
+	top: 45px;
 	display: flex;
+	flex-direction: row;
+	align-items: center;
 }
 
 .button {
 	font-family: 'Anton', sans-serif;
 	width: 800px;
 	height: 100px;
-	font-family: 'Anton', sans-serif;
 }
 
 .form-container {

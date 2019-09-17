@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<meta charset="UTF-8">
+<title>About us</title>
+<link rel="stylesheet" href="/css/indexStyle.css">
+<link rel="stylesheet" href="/css/headerStyle.css">
+<link href="/icons/css/all.css" rel="stylesheet">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+	integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+	integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+	crossorigin="anonymous"></script>
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+	integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+	crossorigin="anonymous"></script>
+</head>
+<body class="index-body">
+	<div th:fragment="header">
+		<div class="head">
+			<div class="logo-container ">
+				<div class="logo"></div>
+				<a class="home" href="/">Running bet</a>
+			</div>
+			<div class="head-about-us">
+				<div class=" btn-group btn-group-lg" role="group">
+					<form th:action="@{/}" method="get">
+						<button class="form-container" type="submit">
+							<i class="fas fa-home"></i> На главную
+						</button>
+					</form>
+				</div>
+			</div>
+			<th:block sec:authorize="isAuthenticated()">
+				<form th:action="@{/logout}" method="post">
+					<button class="form-container" type="submit">
+						Выйти <i class="fas fa-sign-in-alt"></i>
+					</button>
+				</form>
+			</th:block>
+			<th:block sec:authorize="isAnonymous()">
+				<form th:action="@{/logout}" method="post">
+					<button class="form-container" type="submit">
+						Войти <i class="fas fa-sign-in-alt"></i>
+					</button>
+				</form>
+			</th:block>
+		</div>
+	</div>
+
+	<div class="aboutUs-container">
+		<h1>RunningBet</h1>
+		<div style="font-size: 23px; margin-top: 10px;" align="center">
+			RunningBet - это дипломный проект, который является результатом
+			окончания обучения в компьютерной академии ШАГ, на профессиональном
+			спец курсе Java.</div>
+		<div style="font-size: 23px; margin-top: 10px;" align="center">
+			Целью дипломного пректа было написать программу для приема ставок и
+			расчета выигрышей на скачках. Пользователи, зарегистрированные в
+			системе, могут поставить любую сумму на одну из семи лошадей.
+			Предварительно администратор системы вносит список лошадей. По
+			результатам заезда (его можно смоделировать на основе случайных
+			чисел) должна рассчитываться сумма выигрыша. Желательно, чтобы
+			система могла обрабатывать несколько видов ставок (какая лошадь
+			придет первой, какая лошадь придет последней и т.д.).</div>
+	</div>
+
+</body>
+</html>

@@ -39,9 +39,10 @@
 							<div th:text="${wins}"></div>
 						</div>
 					</button>
-					<button type="button" class="btn btn-warning">О нас</button>
-					<input sec:authorize="hasRole('ROLE_admin')"
-						class="btn btn-warning" type="button" value="Администратор"
+					<input class="btn btn-warning" type="button" value="О нас"
+						onclick="window.location.href='/about'" /> <input
+						sec:authorize="hasRole('ROLE_admin')" class="btn btn-warning"
+						type="button" value="Администратор"
 						onclick="window.location.href='/admin/users'" />
 
 				</div>
